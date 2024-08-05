@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class EmployeeDocument extends Model
 {
     use HasFactory;
 
-    /* Relacion de 1 a 1 
-    belongsTo: Se usa en el modelo que tiene la clave foránea. 
-    Indica que este modelo pertenece a otro. */
+    /* Relacion 1 a muchos inversa
 
-    public function employee(){
+    */
+    public function Employee(){
         return $this->belongsTo(Employee::class);
     }
 }
