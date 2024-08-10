@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('stock_min');
             $table->integer('stock_max');
             $table->integer('current_stock');
-            $table->decimal('price', 6, 2);
+            $table->decimal('price', 8, 2);
             $table->unsignedBigInteger('product_id')->unique();
             $table->foreign('product_id')->references('id')->on('products')
             ->onDelete('cascade')->onUpdate('cascade');;

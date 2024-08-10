@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('detail_inflow', function (Blueprint $table) {
             $table->integer('quantity');
-            $table->decimal('purcharse_price', 6,2);
-            $table->decimal('profit', 2,2);
+            $table->decimal('purcharse_price', 7,2);
+            $table->decimal('profit', 4,2);
             $table->unsignedBigInteger('inflow_id');
             $table->foreign('inflow_id')->references('id')->on('inflows')
             ->onDelete('cascade')->onUpdate('cascade');

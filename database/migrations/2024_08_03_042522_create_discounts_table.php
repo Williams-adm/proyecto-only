@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 55);
             $table->text('description');
-            $table->decimal('porcentage', 2,2);
+            $table->decimal('porcentage', 4,2);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->timestamps();

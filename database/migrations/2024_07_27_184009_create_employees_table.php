@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('paternal_surname', 25);
             $table->string('maternal_surname', 25);
             $table->date('date_of_brith');
-            $table->decimal('salary', 5,2);
-            $table->date('payment_date');
+            $table->decimal('salary', 8,2);
+            $table->string('payment_date', 120);
             $table->string('photo_path')->nullable()->unique();
             $table->timestamps();
         });
