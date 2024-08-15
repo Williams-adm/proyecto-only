@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('type_records', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['manual', 'automatico']);
+            $table->enum('type',['MANUAL', 'AUTOMATICO']);
             $table->unique(['type', 'customer_id']);
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers')

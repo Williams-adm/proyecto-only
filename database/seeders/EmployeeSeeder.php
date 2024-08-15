@@ -20,7 +20,7 @@ class EmployeeSeeder extends Seeder
             'name' => ucwords('elmo'),
             'paternal_surname' => ucwords('lujan'),
             'maternal_surname' => ucwords('carrion'),
-            'date_of_brith' => '2000/05/18',
+            'date_of_brith' => '2000-05-18',
             'salary' => '1500.00',
             'payment_date' => 'Semanal'
         ]);

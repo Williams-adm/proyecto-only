@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('employee_documents', function (Blueprint $table) {
             $table->id();
-            $table->enum('document_type', ['cv','copia de DI','otros']);
+            $table->enum('document_type', ['CV','COPIA DE DI','OTROS']);
             $table->unique(['employee_id','document_type']);
             $table->string('document_path')->unique();
             $table->unsignedBigInteger('employee_id');
