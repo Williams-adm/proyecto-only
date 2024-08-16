@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         EmployeeDocument::factory(18)->create();
         $this->call(CustomerSeeder::class);
         $this->call(TypeRecordSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(EmployeeRoleSeeder::class);
     }
 }
