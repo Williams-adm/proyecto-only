@@ -6,7 +6,8 @@ use App\Models\Employee;
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 class EmployeeRoleSeeder extends Seeder
 {
     /**
@@ -23,15 +24,47 @@ class EmployeeRoleSeeder extends Seeder
         $employee = $employees->find($specificEmployeeId);
         $role = $roles->where('name', $specificRoleName)->first();
 
-        if($employee && $role){
-            $employee->roles()->attach($role->id);
-        }
-
-        $rolesToAssign = $role->where('id', '!=', $role->id)->pluck('id')->toArray();
-        $employeesToAssign = $employees->where('id', '!=', $specificEmployeeId)->pluck('id')->toArray();
-
-        foreach($employeesToAssign as $employeeAsig){
-            $employeeAsig->roles()->sync($rolesToAssign->pluck('id'));
-        }
+        DB::table('employee_role')->insert([
+            'employee_id' => 1,
+            'role_id' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('employee_role')->insert([
+            'employee_id' => 2,
+            'role_id' => 2,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('employee_role')->insert([
+            'employee_id' => 3,
+            'role_id' => 3,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('employee_role')->insert([
+            'employee_id' => 4,
+            'role_id' => 4,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('employee_role')->insert([
+            'employee_id' => 5,
+            'role_id' => 4,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('employee_role')->insert([
+            'employee_id' => 6,
+            'role_id' => 3,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('employee_role')->insert([
+            'employee_id' => 3,
+            'role_id' => 2,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
     }
 }
