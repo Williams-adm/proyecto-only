@@ -14,4 +14,9 @@ class Inflow extends Model
         withPivot('quantity', 'purcharse_price', 'profit')
         ->withTimestamps();
     }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }

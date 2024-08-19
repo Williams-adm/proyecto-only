@@ -13,10 +13,6 @@ class Inventory extends Model
     {
         return $this->belongsTo(Product::class);
     }
-    
-    public function supplier(){
-        return $this->belongsTo(Supplier::class);
-    }
 
     //muchos a muchos con un modelo de tabla intermedia
     public function inflows(){

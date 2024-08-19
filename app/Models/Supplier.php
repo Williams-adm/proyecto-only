@@ -9,7 +9,7 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    public function inventories(){
-        return $this->hasMany(Inventory::class);
+    public function inflows(){
+        return $this->hasMany(Inflow::class);
     }
 }

@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('path_voucher');
             $table->text('reazon')->nullable();
             $table->string('num_voucher_sale', 15)->nullable();
+
+            $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->foreign('supplier_id')->references('id')->on('suppliers')
+            ->onDelete('set null')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
