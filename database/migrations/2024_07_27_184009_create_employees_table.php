@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('salary', 8,2);
             $table->string('payment_date', 120);
             $table->string('photo_path')->nullable()->unique();
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }
