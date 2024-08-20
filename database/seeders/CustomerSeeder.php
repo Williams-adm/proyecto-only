@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\Customer;
+use App\Models\Note;
+use App\Models\Phone;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -28,5 +31,27 @@ class CustomerSeeder extends Seeder
         ]);
 
         Customer::factory(13)->create();
+        $customer = Customer::all()->pluck('id')->toArray();
+
+        foreach ($customer as $customerPhone){
+            Phone::factory(1)->create([
+                'phoneable_id' => $customerPhone,
+                'phoneable_type' => Customer::class
+            ]);
+        }
+
+        foreach($customer as $customerAddress){
+            Address::factory(1)->create([
+                'addressable_id' => $customerAddress,
+                'addressable_type' => Customer::class
+            ]);
+        }
+
+        foreach($customer as $customerNotes){
+            Note::factory(1)->create([
+                'noteable_id' => $customerNotes,
+                'noteable_type' => Customer::class
+            ]);
+        }
     }
 }

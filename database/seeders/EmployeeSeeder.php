@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\Employee;
+use App\Models\Note;
+use App\Models\Phone;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -34,5 +37,27 @@ class EmployeeSeeder extends Seeder
         $employee->update(['photo_path' => $imageName]);
 
         Employee::factory(5)->create();
+        $employees = Employee::all()->pluck('id')->toArray();
+
+        foreach($employees as $employeePhones){
+            Phone::factory(1)->create([
+                'phoneable_id' => $employeePhones,
+                'phoneable_type' => Employee::class
+            ]);
+        }
+
+        foreach($employees as $employeeAddress){
+            Address::factory(1)->create([
+                'addressable_id' => $employeeAddress,
+                'addressable_type' => Employee::class
+            ]);
+        }
+
+        foreach ($employees as $employeeNotes) {
+            Note::factory(1)->create([
+                'noteable_id' => $employeeNotes,
+                'noteable_type' => Employee::class
+            ]);
+        }
     }
 }
