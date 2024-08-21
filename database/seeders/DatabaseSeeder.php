@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DetailValue;
 use App\Models\EmployeeDocument;
 use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -28,5 +29,7 @@ class DatabaseSeeder extends Seeder
         Product::factory(20)->create();
         $this->call(DiscountSeeder::class);
         $this->call(DiscountProductSeeder::class);
+        $this->call(DetailSeeder::class);
+        DetailValue::factory(20)->create();
     }
 }

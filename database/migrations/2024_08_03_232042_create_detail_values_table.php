@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')
             ->onDelete('cascade')->onUpdate('cascade');
+            $table->unique(['value', 'detail_id', 'product_id'], 'val_deta_prod_unique');
             $table->timestamps();
         });
     }
