@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Address;
+use App\Models\DocumentType;
 use App\Models\Employee;
 use App\Models\Note;
 use App\Models\Phone;
@@ -57,6 +58,13 @@ class EmployeeSeeder extends Seeder
             Note::factory(1)->create([
                 'noteable_id' => $employeeNotes,
                 'noteable_type' => Employee::class
+            ]);
+        }
+
+        foreach ($employees as $employeeDocumentType){
+            DocumentType::factory(1)->create([
+                'documentable_id' => $employeeDocumentType,
+                'documentable_type' => Employee::class
             ]);
         }
     }

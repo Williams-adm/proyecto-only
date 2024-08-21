@@ -19,7 +19,7 @@ class PhoneFactory extends Factory
         /* $NumRandom = ['51' , '52' , '54']; */
         return [
             'prefix' => '+51', /* . $this->faker->randomElement($NumRandom), */
-            'number' => $this->faker->randomNumber(9, false)
+            'number' => $this->faker->unique()->randomNumber(9, false)
         ];
     }
 }

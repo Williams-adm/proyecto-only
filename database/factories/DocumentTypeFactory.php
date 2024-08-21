@@ -17,7 +17,8 @@ class DocumentTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'type' => strtoupper('dni'),
+            'number' => $this->faker->unique()->numberBetween(10000000, 99999999)
         ];
     }
 }

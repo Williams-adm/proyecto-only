@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\EmployeeDocument;
+use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -23,5 +24,9 @@ class DatabaseSeeder extends Seeder
         $this->call(EmployeeRoleSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(PermissionRoleSeeder::class);
+        $this->call(CategorySeeder::class);
+        Product::factory(20)->create();
+        $this->call(DiscountSeeder::class);
+        $this->call(DiscountProductSeeder::class);
     }
 }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Address;
 use App\Models\Customer;
+use App\Models\DocumentType;
 use App\Models\Note;
 use App\Models\Phone;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -51,6 +52,13 @@ class CustomerSeeder extends Seeder
             Note::factory(1)->create([
                 'noteable_id' => $customerNotes,
                 'noteable_type' => Customer::class
+            ]);
+        }
+
+        foreach ($customer as $customerDocumentType) {
+            DocumentType::factory(1)->create([
+                'documentable_id' => $customerDocumentType,
+                'documentable_type' => Customer::class
             ]);
         }
     }

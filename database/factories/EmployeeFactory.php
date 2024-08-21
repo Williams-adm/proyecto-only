@@ -26,7 +26,7 @@ class EmployeeFactory extends Factory
 
         $client = new Client();
         $imageUrl = 'https://picsum.photos/400/200';
-        $imageName = 'employee/' . Str::slug($name . '-' . $paternal_surname . '-' . $maternal_surname) . '.jpg';
+        $imageName = 'Employee/' . Str::slug($name . '-' . $paternal_surname . '-' . $maternal_surname) . '.jpg';
 
         $response = $client->get($imageUrl);
         Storage::put('public/' . $imageName, $response->getBody());
