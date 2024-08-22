@@ -15,10 +15,17 @@ class DetailValueFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected static $productID= [];
+
     public function definition(): array
     {
-        $product = Product::all()->pluck('id')->toArray(); 
-        $productID = array_shift($product);
+        $product = Product::all()->pluck('id')->toArray();
+
+        if (empty(self::$productID)) {
+            self::$productID = $product;
+        }
+        $productID = array_shift(self::$productID);
 
         return [
             'value' => $this->faker->safeColorName(),

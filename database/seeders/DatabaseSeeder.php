@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DetailImage;
 use App\Models\DetailValue;
 use App\Models\EmployeeDocument;
 use App\Models\Product;
@@ -31,5 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DiscountProductSeeder::class);
         $this->call(DetailSeeder::class);
         DetailValue::factory(20)->create();
+        DetailImage::factory(20)->create();
     }
 }
