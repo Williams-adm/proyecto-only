@@ -21,9 +21,6 @@ class EmployeeRoleSeeder extends Seeder
         $specificEmployeeId = 1;
         $specificRoleName = strtolower("Administrador");
 
-        $employee = $employees->find($specificEmployeeId);
-        $role = $roles->where('name', $specificRoleName)->first();
-
         DB::table('employee_role')->insert([
             'employee_id' => 1,
             'role_id' => 1,

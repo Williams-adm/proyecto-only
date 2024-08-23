@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('inflows', function (Blueprint $table) {
             $table->id();
             $table->string('operation', 55);
-            $table->dateTime('entry_date');
-            $table->string('path_voucher');
+            /* $table->dateTime('entry_date'); */
+            $table->string('num_voucher', 15);
+            $table->string('path_voucher')->unique();
             $table->text('reazon')->nullable();
-            $table->string('num_voucher_sale', 15)->nullable();
+            /* $table->string('num_voucher_sale', 15)->nullable(); */
 
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers')

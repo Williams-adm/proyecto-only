@@ -31,7 +31,7 @@ class EmployeeSeeder extends Seeder
 
         $client = new Client();
         $imageUrl = 'https://picsum.photos/400/200';
-        $imageName = 'employee/' . Str::slug($employee->name . '-' . $employee->paternal_surname . '-' . $employee->maternal_surname) . '.jpg';
+        $imageName = 'Employee/' . Str::slug($employee->name . '-' . $employee->paternal_surname . '-' . $employee->maternal_surname) . '.jpg';
         $response = $client->get($imageUrl);
         Storage::put('public/' . $imageName, $response->getBody());
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\DetailImage;
 use App\Models\DetailValue;
 use App\Models\EmployeeDocument;
+use App\Models\Inventory;
 use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -33,5 +34,8 @@ class DatabaseSeeder extends Seeder
         $this->call(DetailSeeder::class);
         DetailValue::factory(20)->create();
         DetailImage::factory(20)->create();
+        Inventory::factory(20)->create();
+        $this->call(SupplierSeeder::class);
+        $this->call(InflowSeeder::class);
     }
 }
