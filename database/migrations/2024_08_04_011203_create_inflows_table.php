@@ -17,6 +17,7 @@ return new class extends Migration
             /* $table->dateTime('entry_date'); */
             $table->string('num_voucher', 15);
             $table->string('path_voucher')->unique();
+            $table->decimal('total', 10, 2)->nullable();
             $table->text('reazon')->nullable();
             /* $table->string('num_voucher_sale', 15)->nullable(); */
 
