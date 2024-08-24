@@ -9,6 +9,7 @@ use Illuminate\Database\Seeder;
 /* use Illuminate\Support\Carbon; */
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -50,21 +51,19 @@ class InflowSeeder extends Seeder
         }
 
         DetailInflow::factory(20)->create();
-        
-        $det1 = DetailInflow::all()->where('inflow_id', '=', 1);
-        $total = $det1->sum(function ($detail){
-            return $detail->quantity * $detail->purcharse_price;
-        });
 
-        $det2 = DetailInflow::all()->where('inflow_id', '=', 2);
-        $total2 = $det2->sum(function ($detail2) {
-            return $detail2->quantity * $detail2->purcharse_price;
-        });
+        $total = DetailInflow::where('inflow_id', 1)->sum(DB::raw('quantity * purcharse_price'));
 
-        if(Inflow::where('supplier_id', '=', 1)){
-            $inflows->update(['total' => $total]);
-        }else{
-            $inflows->update(['total' => $total2]);
+        $total2 = DetailInflow::where('inflow_id', 2)->sum(DB::raw('quantity * purcharse_price'));
+
+        for ($i=1; $i<=2; $i++){
+            if($i == 1){
+                $inflow = Inflow::where('supplier_id', '=', $i)->first();
+                $inflow->update(['total' => $total]);
+            }if($i == 2){
+                $inflow = Inflow::where('supplier_id', '=', $i)->first();
+                $inflow->update(['total' => $total2]);
+            }
         }
     }
 }

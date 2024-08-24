@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('outflows', function (Blueprint $table) {
             $table->id();
             $table->string('reazon', 155);
-            $table->dateTime('departure_date');
+            /* $table->dateTime('departure_date'); */
             $table->timestamps();
         });
     }

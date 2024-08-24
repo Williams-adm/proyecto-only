@@ -37,5 +37,9 @@ class DatabaseSeeder extends Seeder
         Inventory::factory(20)->create();
         $this->call(SupplierSeeder::class);
         $this->call(InflowSeeder::class);
+        $this->call(OutflowSeeder::class);
+        $this->call(DetailOutflowSeeder::class);
+
+        $this->call(PaymentMethodSeeder::class);
     }
 }
