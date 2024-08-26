@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('detail_sale', function (Blueprint $table) {
             $table->integer('quantity');
-            $table->decimal('discount', 6,2);
             $table->decimal('unit_price', 7,2);
+            $table->decimal('discount', 6,2);
             $table->decimal('amount', 10,2);
             $table->unsignedBigInteger('sale_id');
             $table->foreign('sale_id')->references('id')->on('sales')

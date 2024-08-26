@@ -16,7 +16,7 @@ return new class extends Migration
             $table->decimal('sub_total', 10,2);
             $table->decimal('igv', 10,2);
             $table->decimal('total', 10,2);
-            $table->dateTime('sale_date');
+            /* $table->dateTime('sale_date'); */
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')
             ->onDelete('set null')->onUpdate('cascade');
