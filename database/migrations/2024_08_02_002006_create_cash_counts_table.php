@@ -16,7 +16,8 @@ return new class extends Migration
             $table->decimal('total_sale', 10,2);
             $table->decimal('total_income', 10,2);
             $table->decimal('total_outflow', 10,2);
-            $table->dateTime('cash_count_date');
+            $table->decimal('total_cash', 10,2);
+            /* $table->dateTime('cash_count_date'); */
             $table->string('path')->unique();
             $table->timestamps();
         });

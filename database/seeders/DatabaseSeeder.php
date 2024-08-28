@@ -39,9 +39,11 @@ class DatabaseSeeder extends Seeder
         $this->call(InflowSeeder::class);
         $this->call(OutflowSeeder::class);
         $this->call(DetailOutflowSeeder::class);
-
         $this->call(SaleSeeder::class);
         $this->call(DetailSaleSeeder::class);
         $this->call(PaymentMethodSeeder::class);
+        $this->call(PaymentMethodSaleSeeder::class);
+        $this->call(CashCountSeeder::class);
+        $this->call(CashTransactionSeeder::class);
     }
 }

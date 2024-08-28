@@ -19,7 +19,7 @@ class DetailInflowFactory extends Factory
     protected static $inventoryID = [];
     public function definition(): array
     {
-        $profit = $this->faker->randomFloat(2, 0, 0.40);
+        $profit = $this->faker->randomFloat(2, 0, 0.30);
         $inflow_id = Inflow::all()->pluck('id');
 
         $inventory = Inventory::all()->pluck('id')->toArray();

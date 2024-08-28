@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
-            $table->enum('type_voucher',['boleta', 'factura']);
+            $table->enum('type_voucher',['BOLETA', 'FACTURA']);
             $table->string('num_voucher',15)->unique();
-            $table->dateTime('issue_date');
+/*             $table->dateTime('issue_date'); */
             $table->string('path')->unique();
             $table->unsignedBigInteger('sale_id')->unique();
             $table->foreign('sale_id')->references('id')->on('sales')

@@ -21,7 +21,8 @@ class DetailSaleSeeder extends Seeder
         $quantity = [1, 2, 3];
         $sale = [1, 2, 3];
         
-        foreach($sale as $sales){
+        foreach($sale as $sales){ 
+            $subTotal = 0;
             for ($i = 1; $i<=4; $i++){
                 $inventoryKey = array_rand($inventory);
                 $inventoryID = $inventory[$inventoryKey];
@@ -42,8 +43,10 @@ class DetailSaleSeeder extends Seeder
                 }else{
                     $discount = 0.00;
                 }
-        
+                
                 $amount = ($quantityvalue * $unitprice) * (1-$discount);
+                $subTotal += $amount; 
+
                 DetailSale::create([
                     'quantity' => $quantityvalue,
                     'unit_price' => $unitprice,
@@ -54,12 +57,14 @@ class DetailSaleSeeder extends Seeder
                 ]);
                 $stock = $inventorySearch->current_stock;
                 $inventorySearch->update(['current_stock' => $stock - $quantityvalue]);
-                Sale::find($sales)->update([
-
-
-                    
-                ]);
             }
+            $igv = $subTotal / 1.18;
+            $total = $subTotal + $igv;
+            Sale::find($sales)->update([
+                'sub_total' => $subTotal,
+                'igv' => $igv,
+                'total' => $total
+            ]);
         }
     }
 }

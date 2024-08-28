@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('cash_transactions', function (Blueprint $table) {
             $table->id();
             $table->decimal('amount', 10,2);
-            $table->enum('type', ['salida','entrada']);
+            $table->enum('type', ['SALIDA','ENTRADA']);
             $table->text('description');
-            $table->dateTime('cash_transaction_date');
+            /* $table->dateTime('cash_transaction_date'); */
             $table->unsignedBigInteger('cash_count_id')->nullable();
             $table->foreign('cash_count_id')->references('id')->on('cash_counts')
             ->onDelete('set null')->onUpdate('cascade');
