@@ -29,6 +29,10 @@ return new class extends Migration
             $table->foreign('cash_count_id')->references('id')->on('cash_counts')
             ->onDelete('set null')->onUpdate('cascade');
 
+            $table->unsignedBigInteger('branch_id')->unique();
+            $table->foreign('branch_id')->references('id')->on('branches')
+            ->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

@@ -19,6 +19,9 @@ return new class extends Migration
             $table->decimal('total_cash', 10,2);
             /* $table->dateTime('cash_count_date'); */
             $table->string('path')->unique();
+            $table->unsignedBigInteger('branch_id')->unique();
+            $table->foreign('branch_id')->references('id')->on('branches')
+            ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

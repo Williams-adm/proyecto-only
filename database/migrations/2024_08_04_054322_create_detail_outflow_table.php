@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('detail_outflow', function (Blueprint $table) {
             $table->integer('quantity');
             $table->unsignedBigInteger('inventory_id');
-            $table->foreign('inventory_id')->references('id')->on('inventories')
+            $table->foreign('inventory_id')->references('id')->on('inventory')
             ->onDelete('cascade')->onUpdate('cascade');
 
             $table->unsignedBigInteger('outflow_id');

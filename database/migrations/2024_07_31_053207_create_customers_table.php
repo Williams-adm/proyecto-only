@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('maternal_surname', 25)->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('business_name', 85)->nullable();
-            $table->string('fiscal_address ')->nullable();
+            $table->string('fiscal_address')->nullable();
             $table->timestamps();
         });
     }

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_images', function (Blueprint $table) {
+        Schema::create('branches', function (Blueprint $table) {
             $table->id();
-            $table->string('path')->unique();
-            $table->unsignedBigInteger('detail_value_id');
-            $table->foreign('detail_value_id')->references('id')->on('detail_value')
-            ->onDelete('cascade')->onUpdate('cascade');
+            $table->string('name');
+            $table->string('address');
+            $table->string('phone', 11);
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_images');
+        Schema::dropIfExists('branches');
     }
 };

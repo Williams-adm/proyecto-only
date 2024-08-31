@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetailValue extends Model
 {
     use HasFactory;
+    protected $table = 'detail_value';
 
     public function product(){
         return $this->belongsTo(Product::class);

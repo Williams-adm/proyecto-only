@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('reazon', 155);
             /* $table->dateTime('departure_date'); */
+            $table->unsignedBigInteger('branch_id')->unique();
+            $table->foreign('branch_id')->references('id')->on('branches')
+            ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

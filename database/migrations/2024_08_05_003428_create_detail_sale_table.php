@@ -21,7 +21,7 @@ return new class extends Migration
             ->onDelete('cascade')->onUpdate('cascade');
 
             $table->unsignedBigInteger('inventory_id');
-            $table->foreign('inventory_id')->references('id')->on('inventories')
+            $table->foreign('inventory_id')->references('id')->on('inventory')
             ->onDelete('cascade')->onUpdate('cascade');
             $table->primary(['sale_id', 'inventory_id']);
             $table->timestamps();

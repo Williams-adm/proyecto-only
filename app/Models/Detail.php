@@ -9,7 +9,9 @@ class Detail extends Model
 {
     use HasFactory;
 
-    public function detailvalues(){
-        return $this->hasMany(DetailValue::class);
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'detail_value')->withPivot('value')
+        ->withTimestamps();
     }
 }

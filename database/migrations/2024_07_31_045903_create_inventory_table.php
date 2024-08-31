@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('inventory', function (Blueprint $table) {
             $table->id();
             $table->integer('stock_min');
             $table->integer('stock_max');
@@ -20,7 +20,11 @@ return new class extends Migration
             $table->boolean('status')->default('1');
             $table->unsignedBigInteger('product_id')->unique();
             $table->foreign('product_id')->references('id')->on('products')
-            ->onDelete('cascade')->onUpdate('cascade');;
+            ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->unsignedBigInteger('branch_id')->unique();
+            $table->foreign('branch_id')->references('id')->on('branches')
+            ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('inventory');
     }
 };

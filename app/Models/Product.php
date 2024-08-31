@@ -14,15 +14,16 @@ class Product extends Model
     }
 
     public function inventory(){
-        /* relacion de 1 a 1 */
-        return $this->hasOne(Inventory::class);
+        /* relacion de 1 a n */
+        return $this->hasMany(Inventory::class);
     }
 
     public function discounts(){
         return $this->belongsToMany(Discount::class);
     }
 
-    public function detailvalues(){
-        return $this->hasMany(DetailValue::class);
+    public function details(){
+        return $this->belongsToMany(Detail::class, 'detail_value')->withPivot('value')
+        ->withTimestamps();
     }
 }

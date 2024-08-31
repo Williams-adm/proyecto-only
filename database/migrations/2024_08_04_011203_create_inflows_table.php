@@ -25,6 +25,10 @@ return new class extends Migration
             $table->foreign('supplier_id')->references('id')->on('suppliers')
             ->onDelete('set null')->onUpdate('cascade');
 
+            $table->unsignedBigInteger('branch_id')->unique();
+            $table->foreign('branch_id')->references('id')->on('branches')
+            ->onDelete('cascade')->onUpdate('cascade');
+            
             $table->timestamps();
         });
     }
