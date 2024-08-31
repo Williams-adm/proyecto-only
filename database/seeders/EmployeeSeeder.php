@@ -26,7 +26,7 @@ class EmployeeSeeder extends Seeder
             'maternal_surname' => ucwords('carrion'),
             'date_of_brith' => '2000-05-18',
             'salary' => '1500.00',
-            'payment_date' => 'Semanal'
+            'payment_date' => strtoupper('Semanal')
         ]);
 
         $client = new Client();

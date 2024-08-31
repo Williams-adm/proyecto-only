@@ -19,4 +19,8 @@ class Inflow extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    public function branch(){
+        return $this->belongsTo(Branch::class);
+    }
 }

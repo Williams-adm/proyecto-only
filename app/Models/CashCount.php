@@ -16,4 +16,8 @@ class CashCount extends Model
     public function sales(){
         return $this->hasMany(Sale::class);
     }
+
+    public function branch(){
+        return $this->belongsTo(Branch::class);
+    }
 }

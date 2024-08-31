@@ -34,4 +34,8 @@ class Sale extends Model
         return $this->belongsToMany(Inventory::class , 'detail_sale')
         ->withPivot('quantity', 'discount' , 'unit_price' , 'amount')->withTimestamps();
     }
+    
+    public function branch(){
+        return $this->belongsTo(Branch::class);
+    }
 }

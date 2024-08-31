@@ -13,4 +13,9 @@ class Outflow extends Model
         return $this->belongsToMany(Inventory::class, 'detail_outflow')
         ->withPivot('quantity')->withTimestamps();
     }
+    
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }

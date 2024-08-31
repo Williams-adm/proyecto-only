@@ -18,13 +18,15 @@ return new class extends Migration
             $table->integer('current_stock');
             $table->decimal('selling_price', 8, 2);
             $table->boolean('status')->default('1');
-            $table->unsignedBigInteger('product_id')->unique();
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')
             ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->unsignedBigInteger('branch_id')->unique();
+            $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches')
             ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->unique(['product_id', 'branch_id']);
             $table->timestamps();
         });
     }

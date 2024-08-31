@@ -15,6 +15,10 @@ class Inventory extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function branch(){
+        return $this->belongsTo(Branch::class);
+    }
+
     //muchos a muchos con un modelo de tabla intermedia
     public function inflows(){
         return $this->belongsToMany(Inflow::class, 'detail_inflow')

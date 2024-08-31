@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('maternal_surname', 25);
             $table->date('date_of_brith');
             $table->decimal('salary', 8,2);
-            $table->string('payment_date', 120);
+            $table->enum('payment_date', ['FIN DE MES', 'QUINCENAL', 'SEMANAL']);
             $table->string('photo_path')->nullable()->unique();
             $table->boolean('status')->default('1');
             $table->timestamps();
