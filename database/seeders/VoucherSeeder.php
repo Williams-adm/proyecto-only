@@ -18,24 +18,26 @@ class VoucherSeeder extends Seeder
     public function run(): void
     {
         $sale = Sale::all()->pluck('id')->toArray();
-
-        $voucherName = 'VoucherSale/' . Str::slug($operation . '-' . $numVouchers) . '.pdf';
-        $options = new Options();
-        $options->set('defaultFont', 'Courier');
-        $dompdf = new Dompdf($options);
-        $content = "<h1>Número de Voucher: " . $numVouchers . "</h1><p>Tipo Voucher: " . $operation . "</p><p>" .
-        "Aqui la venta como tal
-        " . "</p>";
-        $dompdf->loadHtml($content);
-        $dompdf->render();
-        $output = $dompdf->output();
-
-        Storage::put('public/' . $voucherName, $output);
-
+        $typeVoucher = strtoupper('Boleta');
         foreach($sale as $sales){
+            $numVoucher = "B000" . $sales;
+
+            $voucherName = 'VoucherSale/' . Str::slug($typeVoucher . '-' . $numVoucher) . '.pdf';
+            $options = new Options();
+            $options->set('defaultFont', 'Courier');
+            $dompdf = new Dompdf($options);
+            $content = "<h1>Número de Voucher: " . $numVoucher . "</h1><p>Tipo Voucher: " . $typeVoucher . "</p><p>" .
+            "Aqui va el voucher de venta como tal
+            " . "</p>";
+            $dompdf->loadHtml($content);
+            $dompdf->render();
+            $output = $dompdf->output();
+    
+            Storage::put('public/' . $voucherName, $output);
+
             Voucher::create([
-                'type_voucher' => strtoupper('Boleta'),
-                'num_voucher' => "B000" . $sales,
+                'type_voucher' => $typeVoucher,
+                'num_voucher' => $numVoucher,
                 'path' => $voucherName,
                 'sale_id' => $sales
             ]);

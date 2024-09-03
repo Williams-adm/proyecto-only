@@ -46,5 +46,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentMethodSaleSeeder::class);
         $this->call(CashCountSeeder::class);
         $this->call(CashTransactionSeeder::class);
+        $this->call(VoucherSeeder::class);
     }
 }
