@@ -6,7 +6,7 @@ use App\Models\CashCount;
 use App\Models\Sale;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Faker\Factory as FakerFactory;
 class CashCountSeeder extends Seeder
 {
     /**
@@ -14,8 +14,12 @@ class CashCountSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = FakerFactory::create();
+
         $totalSale = Sale::sum('total');
         CashCount::create([
+            'branch_id' => 1,
+            'code' => $faker->unique()->randomNumber(),
             'total_sale' => $totalSale,
             'total_income' => 0,
             'total_outflow' => 0,

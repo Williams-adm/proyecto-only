@@ -2,21 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\Outflow;
+use App\Models\Branch;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class OutflowSeeder extends Seeder
+class BranchSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Outflow::create([
-            'code' => 21313,
-            'branch_id' => 1,
-            'reazon' => "Producto dañado"
+        Branch::create([
+            'name' => strtolower('sucursal Principal'),
+            'address' => strtolower('Calle real #2079'),
+            'phone' => '854982321'
         ]);
     }
 }

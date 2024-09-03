@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cash_counts', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 15)->unique();
             $table->decimal('total_sale', 10,2);
             $table->decimal('total_income', 10,2);
             $table->decimal('total_outflow', 10,2);

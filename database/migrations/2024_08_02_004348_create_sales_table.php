@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 15)->unique();
             $table->decimal('sub_total', 10,2);
             $table->decimal('igv', 10,2);
             $table->decimal('total', 10,2);

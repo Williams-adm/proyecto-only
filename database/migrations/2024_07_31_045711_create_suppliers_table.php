@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 45)->unique();
             $table->string('contac', 45);
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }

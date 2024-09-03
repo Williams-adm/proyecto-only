@@ -12,7 +12,7 @@ use Dompdf\Options;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-
+use Faker\Factory as FakerFactory;
 class InflowSeeder extends Seeder
 {
     /**
@@ -21,7 +21,7 @@ class InflowSeeder extends Seeder
     protected static $supplier_id = [];
     public function run(): void
     {
-
+        $faker = FakerFactory::create();
         $operation = strtolower('Compra de productos');
         $numVoucher = ['132987' , '7613822'];
         self::$supplier_id = [1, 2];
@@ -41,8 +41,10 @@ class InflowSeeder extends Seeder
 
             Storage::put('public/' . $voucherName, $output);
     
-            $inflows = Inflow::create([
+            Inflow::create([
                 'operation' => $operation,
+                'code' => $faker->unique()->randomNumber(),
+                'branch_id' => 1,
                 /* 'entry_date' => Carbon::now(), */
                 'num_voucher' => $numVouchers,
                 'path_voucher' => $voucherName,
