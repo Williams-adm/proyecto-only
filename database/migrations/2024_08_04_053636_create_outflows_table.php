@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('outflows', function (Blueprint $table) {
             $table->id();
             $table->string('code', 15)->unique();
-            $table->string('reazon', 155);
+            $table->string('operation', 55);
+            $table->string('reazon', 155)->nullable();
+            $table->string('type_voucher', 50)->nullable();
+            $table->string('num_voucher', 15)->nullable();
+            $table->string('path_voucher')->unique()->nullable();
             /* $table->dateTime('departure_date'); */
             $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches')

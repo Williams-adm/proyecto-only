@@ -15,8 +15,9 @@ class OutflowSeeder extends Seeder
     {
         Outflow::create([
             'code' => 21313,
-            'branch_id' => 1,
-            'reazon' => "Producto dañado"
+            'operation' => "Producto dañado",
+            'reazon' => "El producto se rompio, en el trasladoñ",
+            'branch_id' => 1
         ]);
     }
 }

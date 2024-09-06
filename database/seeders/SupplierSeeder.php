@@ -14,12 +14,18 @@ class SupplierSeeder extends Seeder
     public function run(): void
     {
         Supplier::create([
-           'name' => strtolower('Pepito SAC'),
+            'num_ruc' => '105854650',
+            'business_name' => strtolower('Pepito SAC'),
+            'fiscal_address' => strtolower('JR. Olaya #222'),
+            'phone' => '+51 967216742',
             'contac' => 'pepito@gmail.com'
         ]);
         Supplier::create([
-           'name' => strtolower('Fantastic SAC'),
-            'contac' => '+51 934980983'
+            'num_ruc' => '208182924',
+            'business_name' => strtolower('Fantastic SAC'),
+            'fiscal_address' => strtolower('JR. Arequipa #942'),
+            'phone' => '+51 972613413',
+            'contac' => 'fantastic@gmail.com'
         ]);
     }
 }

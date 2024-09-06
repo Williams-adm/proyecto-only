@@ -44,10 +44,11 @@ class InflowSeeder extends Seeder
             Inflow::create([
                 'operation' => $operation,
                 'code' => $faker->unique()->randomNumber(),
-                'branch_id' => 1,
                 /* 'entry_date' => Carbon::now(), */
+                'type_voucher' => strtolower('factura'),
                 'num_voucher' => $numVouchers,
                 'path_voucher' => $voucherName,
+                'branch_id' => 1,
                 'supplier_id' => $supplier_id
             ]);
         }
