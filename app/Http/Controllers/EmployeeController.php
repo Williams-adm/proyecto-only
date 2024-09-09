@@ -17,7 +17,7 @@ class EmployeeController extends Controller
         return new EmployeeCollection($employees->paginate()->appends($request->query()));
     }
 
-    public function create(){
-
+    public function store(){
+        
     }
 }
