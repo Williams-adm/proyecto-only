@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,17 +25,27 @@ class StoreEmployeeRequest extends FormRequest
     {
         return [
             'name' => ['required|string|alpha:ascii|digits_between:3, 50'],
-            'paternal_surname' => ['required|string|alpha:ascii|digits_between:3, 25'],
-            'maternal_surname' => ['required|string|alpha:ascii|digits_between:3, 25'],
-            'date_of_brith' => ['required|date_format:Y-m-d'],
+            'paternalSurname' => ['required|string|alpha:ascii|digits_between:3, 25'],
+            'maternalSurname' => ['required|string|alpha:ascii|digits_between:3, 25'],
+            'dateOfBirth' => ['required|date_format:Y-m-d'],
             'salary' => ['required|numeric|min:0|max:10000', 'decimal:2'],
-            'payment_date' => ['required', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
-            'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'paymentDate' => ['required|string|alpha:ascii', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
+            'photoPath' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
+    } 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'paternal_surname' => $this->paternalSurname,
+            'maternal_surname' => $this->maternalSurname,
+            'date_of_birth' => $this->dateOfBirth,
+            'paymentDate' => strtoupper($this->paymentDate),
+            'photo_path' => $this->photoPath
+        ]);
 
-        protected function prepareForValidation()
-        {
-            if()
-        }
+        if ($this->has('date_of_birth')) {
+            $dateBirth = Carbon::createFromFormat('d-m-Y', $this->input('date_of_birth'))->format('Y-m-d');
+            $this->merge(['date_of_birth' => $dateBirth]);
+        };
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('paternal_surname', 25);
             $table->string('maternal_surname', 25);
-            $table->date('date_of_brith');
+            $table->date('date_of_birth');
             $table->decimal('salary', 8,2);
             $table->enum('payment_date', ['FIN DE MES', 'QUINCENAL', 'SEMANAL']);
             $table->string('photo_path')->nullable()->unique();

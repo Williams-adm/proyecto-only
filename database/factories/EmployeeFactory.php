@@ -35,7 +35,7 @@ class EmployeeFactory extends Factory
             'name' => ucwords($name),
             'paternal_surname' => ucwords($paternal_surname),
             'maternal_surname' => ucwords($maternal_surname), 
-            'date_of_brith' => $this->faker->date(),
+            'date_of_birth' => $this->faker->date(),
             'salary' => $this->faker->randomFloat(2, 500, 1500),
             'payment_date' => strtoupper($this->faker->randomElement($payment_dates)),
             'photo_path' => $imageName
