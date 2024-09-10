@@ -7,6 +7,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Filters\EmployeeFilter;
 use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 
 
@@ -28,7 +29,11 @@ class EmployeeController extends Controller
         return new EmployeeResource($employee);
     }
 
-    public function update(){
-
+    public function update(UpdateEmployeeRequest $request, Employee $employee){
+        $employee->update($request->all());
+    }
+    
+    public function destroy(){
+        
     }
 }

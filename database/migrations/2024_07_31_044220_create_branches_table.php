@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 60);
             $table->string('address');
             $table->string('phone', 11);
-            $table->boolean('status')->default('1');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

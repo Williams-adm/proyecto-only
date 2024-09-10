@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('business_name', 45)->unique();
             $table->string('fiscal_address', 45)->unique()->nullable();
             $table->string('phone', 15)->unique();
-            $table->string('contac', 80)->nullable( );
-            $table->boolean('status')->default('1');
+            $table->string('contac', 80)->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

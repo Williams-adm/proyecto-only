@@ -33,6 +33,7 @@ class StoreEmployeeRequest extends FormRequest
             'photoPath' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     } 
+
     protected function prepareForValidation()
     {
         if ($this->has('dateOfBirth')) {
@@ -52,9 +53,8 @@ class StoreEmployeeRequest extends FormRequest
             'paternal_surname' => $this->paternalSurname,
             'maternal_surname' => $this->maternalSurname,
             'date_of_birth' => $this->dateOfBirth,
+            'payment_date' => $this->paymentDate,
             'photo_path' => $this->photoPath
         ]);
-
-        
     }
 }
