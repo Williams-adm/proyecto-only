@@ -9,6 +9,15 @@ class Employee extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'paternal_surname',
+        'maternal_surname',
+        'date_of_birth',
+        'salary',
+        'payment_date',
+        'photo_path'
+    ];
     /* Relacion de 1 a 1 
     hasOne: Se usa en el modelo que no tiene la clave foránea. 
     Indica que este modelo tiene una relación de uno a uno con otro modelo. */

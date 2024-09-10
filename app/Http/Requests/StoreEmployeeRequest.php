@@ -24,28 +24,37 @@ class StoreEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required|string|alpha:ascii|digits_between:3, 50'],
-            'paternalSurname' => ['required|string|alpha:ascii|digits_between:3, 25'],
-            'maternalSurname' => ['required|string|alpha:ascii|digits_between:3, 25'],
-            'dateOfBirth' => ['required|date_format:Y-m-d'],
-            'salary' => ['required|numeric|min:0|max:10000', 'decimal:2'],
-            'paymentDate' => ['required|string|alpha:ascii', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
+            'name' => ['required', 'string', 'alpha', 'between:3, 50'],
+            'paternalSurname' => ['required', 'string', 'alpha', 'between:3, 25'],
+            'maternalSurname' => ['required', 'string', 'alpha', 'between:3, 25'],
+            'dateOfBirth' => ['required', 'date_format:Y-m-d'],
+            'salary' => ['required', 'numeric', 'between:0, 10000', 'decimal:2'],
+            'paymentDate' => ['required','string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
             'photoPath' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     } 
     protected function prepareForValidation()
     {
+        if ($this->has('dateOfBirth')) {
+            $dateBirth = $this->input('dateOfBirth');
+            $this->merge([
+                'dateOfBirth' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
+            ]);
+        };
+
+        if($this->has('paymentDate')){
+            $this->merge([
+                'paymentDate' => strtoupper($this->input('paymentDate'))
+            ]);
+        }
+
         $this->merge([
             'paternal_surname' => $this->paternalSurname,
             'maternal_surname' => $this->maternalSurname,
             'date_of_birth' => $this->dateOfBirth,
-            'paymentDate' => strtoupper($this->paymentDate),
             'photo_path' => $this->photoPath
         ]);
 
-        if ($this->has('date_of_birth')) {
-            $dateBirth = Carbon::createFromFormat('d-m-Y', $this->input('date_of_birth'))->format('Y-m-d');
-            $this->merge(['date_of_birth' => $dateBirth]);
-        };
+        
     }
 }
