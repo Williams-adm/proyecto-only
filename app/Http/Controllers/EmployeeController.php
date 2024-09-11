@@ -17,7 +17,8 @@ class EmployeeController extends Controller
         /* añadiendo filtro a la ruta */
         $filter = new EmployeeFilter();
         $queryItems = $filter->transform($request);
-        $employees = Employee::where($queryItems);
+
+        $employees = Employee::with('user')->where($queryItems);
         return new EmployeeCollection($employees->paginate()->appends($request->query()));
     }
 

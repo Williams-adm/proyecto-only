@@ -22,7 +22,8 @@ class EmployeeResource extends JsonResource
             'dateOfBirth' => $this->date_of_birth,
             'salary' => $this->salary,
             'paymentDate' => $this->payment_date,
-            'photoPath' => $this->photo_path
+            'photoPath' => $this->photo_path,
+            'user' => new UserResource($this->whenLoaded('user'))
         ];
     }
 }
