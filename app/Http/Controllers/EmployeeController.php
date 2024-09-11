@@ -31,9 +31,11 @@ class EmployeeController extends Controller
 
     public function update(UpdateEmployeeRequest $request, Employee $employee){
         $employee->update($request->all());
+        return "El empleado con el id $employee->id ha sido actualizado"; 
     }
     
-    public function destroy(){
-        
+    public function destroy(Employee $employee){
+        $employee->delete();
+        return "El empleado con el id $employee->id ha sido eliminado";
     }
 }

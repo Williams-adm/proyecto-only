@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,8 +18,40 @@ class Employee extends Model
         'date_of_birth',
         'salary',
         'payment_date',
-        'photo_path'
+        'photo_path' /* chekear cuando se ponga la ikmplementacion de foto */
     ];
+
+    protected function name(): Attribute{
+        return Attribute::make(
+            get: fn (string $value) => ucfirst($value), /* Accesor Formateo para la vista */
+            set: fn(string $value) => strtolower($value)/* Mutador como se guarda en la db */
+        );
+    }
+
+    protected function paternalSurname(): Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => ucfirst($value),
+            set: fn(string $value) => strtolower($value)
+        );
+    }
+
+    protected function maternalSurname(): Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => ucfirst($value), 
+            set: fn(string $value) => strtolower($value)
+        );
+    }
+
+    protected function dateOfBirth(): Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => Carbon::parse($value)->format('d-m-Y'), 
+        );
+    }
+
+
     /* Relacion de 1 a 1 
     hasOne: Se usa en el modelo que no tiene la clave foránea. 
     Indica que este modelo tiene una relación de uno a uno con otro modelo. */
@@ -25,9 +59,7 @@ class Employee extends Model
         return $this->hasOne(User::class);
     }
 
-    /* Relacion de 1 a muchos 
-    
-    */
+    /* Relacion de 1 a muchos */
     public function EmployeeDocuments(){
         return $this->hasMany(EmployeeDocument::class);
     }
