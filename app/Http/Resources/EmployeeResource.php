@@ -23,7 +23,11 @@ class EmployeeResource extends JsonResource
             'salary' => $this->salary,
             'paymentDate' => $this->payment_date,
             'photoPath' => $this->photo_path,
-            'user' => new UserResource($this->whenLoaded('user'))
+            'documentTypes' => DocumentTypeResource::collection($this->whenLoaded('documentTypes')),
+            'phones' => PhoneResource::collection($this->whenLoaded('phones')),
+            'address' => AddressResource::collection($this->whenLoaded('addresses')),
+            'user' => new UserResource($this->whenLoaded('user')),
+            'notes' => NoteResource::collection($this->whenLoaded('notes'))
         ];
     }
 }

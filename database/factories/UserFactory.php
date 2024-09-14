@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
@@ -33,7 +34,7 @@ class UserFactory extends Factory
 
         $employee = Employee::find($employeeId);
         $numAletory = $this->faker->unique()->randomNumber(2, true);
-        $email = strtolower($employee->name) . '.' . strtolower($employee->paternal_surname) . $numAletory . '@onlyhome.com';
+        $email = Str::slug($employee->name . '-' . $employee->paternal_surname) . $numAletory . '@onlyhome.com';
 
         return [
             'email' => $email,

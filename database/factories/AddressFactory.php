@@ -23,7 +23,7 @@ class AddressFactory extends Factory
             'country' => strtolower('Peru'),
             'region' => strtolower('Junin'),
             'province' => strtolower('Huancayo'),
-            'district' => $districtrand,
+            /* 'district' => $districtrand, */
             'city' => $districtrand,
             'street' => strtolower('AV.') . strtolower($this->faker->randomElement($street)),
             'number' => '#' . $this->faker->randomNumber(4)
