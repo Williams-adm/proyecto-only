@@ -15,8 +15,19 @@ class EmployeeCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         /* return parent::toArray($request); */
-        return $this->collection->transform(function ($employee){
+        /* return $this->collection->transform(function ($employee){
             return new EmployeeResource($employee);
-        })->all();
+        })->all(); */
+        return[
+            'data' => $this->collection->transform(function ($employee){
+                return[
+                    'id' => $employee->id,
+                    'fullName' => $employee->name . ' ' . $employee->paternal_surname . ' ' . $employee->maternal_surname,
+                    'phone' => PhoneResource::collection($employee->whenLoaded('phones')),
+                    'registrarion_date' => $employee->created_at,
+                    'photo' => $employee->photo_path,
+                ];
+            })->all(),
+        ];
     }
 }

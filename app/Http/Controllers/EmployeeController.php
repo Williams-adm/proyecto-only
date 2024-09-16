@@ -13,12 +13,13 @@ use App\Http\Resources\EmployeeResource;
 
 class EmployeeController extends Controller
 {
+    /* $employees = Employee::with('documentTypes', 'phones', 'addresses','user', 'notes')->where($queryItems); */
     public function index(Request $request){
         /* añadiendo filtro a la ruta */
         $filter = new EmployeeFilter();
         $queryItems = $filter->transform($request);
-
-        $employees = Employee::with('documentTypes', 'phones', 'addresses','user', 'notes')->where($queryItems);
+        
+        $employees = Employee::with('phones')->where($queryItems);
         return new EmployeeCollection($employees->paginate()->appends($request->query()));
     }
 

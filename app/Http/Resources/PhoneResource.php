@@ -17,7 +17,9 @@ class PhoneResource extends JsonResource
         return [
             'id' => $this->id,
             'prefix' => $this->prefix,
-            'number' => $this->number
+            'number' => $this->number,
+            'phoneableId' => $this->phoneable_id,
+            'phoneableType' => $this->phoneable_type
         ];
     }
 }
