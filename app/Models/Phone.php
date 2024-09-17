@@ -11,21 +11,17 @@ class Phone extends Model
     use HasFactory;
     protected $guarded=[];
 
-    protected function phoneableType(): Attribute
+    public function getPhoneableTypeAttribute()
     {
-        return Attribute::make(
-            
-            get: fn($type) => 'Employee',
-            /* get: function() {
-                $typeMap = [
-                    'App\Models\Employee' => 'Employee',
-                    'App\Models\Customer' => 'Customer',
-                ]; 
+        $typeMap = [
+            'App\Models\Employee' => 'Employee',
+            'App\Models\Customer' => 'Customer',
+        ];
 
-                return $typeMap[$this->phoneable_type] ?? 'Unknown';
-            } */
-        );
+        return $typeMap[$this->attributes['phoneable_type']] ?? 'Unknown';
     }
+
+
 
     public function phoneable(){
         return $this->morphTo();
