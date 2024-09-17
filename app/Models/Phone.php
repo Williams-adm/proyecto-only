@@ -21,8 +21,6 @@ class Phone extends Model
         return $typeMap[$this->attributes['phoneable_type']] ?? 'Unknown';
     }
 
-
-
     public function phoneable(){
         return $this->morphTo();
     }

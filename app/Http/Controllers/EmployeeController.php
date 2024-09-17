@@ -19,7 +19,7 @@ class EmployeeController extends Controller
         $filter = new EmployeeFilter();
         $queryItems = $filter->transform($request);
         
-        $employees = Employee::with('phones')->where($queryItems);
+        $employees = Employee::with('phones', 'user', 'roles')->where($queryItems);
         return new EmployeeCollection($employees->paginate()->appends($request->query()));
     }
 
