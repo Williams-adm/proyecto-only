@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\PhoneController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,4 +13,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('employees', EmployeeController::class);
     Route::get('phones/{phones}', [PhoneController::class, 'show']);
+    Route::prefix('notes')->controller(NoteController::class)->group(function (){
+        Route::post('/', 'store');
+        Route::get('/{notes}', 'show');
+        Route::match(['put', 'patch'], '/{notes}', 'update');
+        Route::delete('/{notes}', 'destroy');
+    });
 });
