@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PhoneResource;
-use App\Models\Phone;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class PhoneController extends Controller
 {
-    public function show(Phone $phones){
-        return new PhoneResource($phones);
+    public function getPhonesByEmployee($employee)
+    {
+        $employeeSearch = Employee::with('phones')->findOrFail($employee);
+        $phones = $employeeSearch->phones;
+        return PhoneResource::collection($phones);
     }
+
+
 }
