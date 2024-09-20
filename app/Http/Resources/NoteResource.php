@@ -18,7 +18,9 @@ class NoteResource extends JsonResource
             'id' => $this->id,
             'noteText' => $this->note_text,
             'reminderDate' => $this->reminder_date,
-            'completed' => $this->completed
+            'completed' => $this->completed,
+            'noteableId' => $this->noteable_id,
+            'noteableType' => $this->noteable_type 
         ];
     }
 }

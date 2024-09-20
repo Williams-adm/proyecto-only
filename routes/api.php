@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('employees', EmployeeController::class);
+
     Route::get('employees/{employee}/phones', [PhoneController::class, 'getPhonesByEmployee'])->name('phones.byEmployee');
+
     Route::prefix('employees')->controller(NoteController::class)->group(function (){
         Route::post('/notes', 'store');
-        Route::get('/{employees}/notes', 'show');
+        Route::get('/{employees}/notes', 'getNotesByEmployee')->name('notes.byEmployee') ;
         Route::match(['put', 'patch'], '/{notes}', 'update');
         Route::delete('/{notes}', 'destroy');
     });

@@ -23,7 +23,7 @@ class EmployeeCollection extends ResourceCollection
                 return[
                     'id' => $employee->id,
                     'fullName' => $employee->name . ' ' . $employee->paternal_surname . ' ' . $employee->maternal_surname,
-                    'phone' => PhoneResource::collection($employee->whenLoaded('phones')),
+                    /* 'phone' => PhoneResource::collection($employee->whenLoaded('phones')), */
                     'user' => new UserResource($employee->whenLoaded('user')),
                     'roles' => RoleResource::collection($employee->whenLoaded('roles')),
                     'photo' => $employee->photo_path,
