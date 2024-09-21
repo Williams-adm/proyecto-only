@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 
 class NoteController extends Controller
 {
-    public function store(){
-
+    public function store(Request $request){
+        return new NoteResource(Note::create($request->all()));
     }
 
     public function getNotesByEmployee($employee)
