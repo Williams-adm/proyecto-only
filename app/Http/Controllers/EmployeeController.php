@@ -27,16 +27,17 @@ class EmployeeController extends Controller
     }
 
     public function show(Employee $employee){
+        $employee->load('documentTypes', 'phones', 'addresses', 'user');
         return new EmployeeResource($employee);
     }
 
     public function update(UpdateEmployeeRequest $request, Employee $employee){
         $employee->update($request->all());
-        return "El empleado con el id $employee->id ha sido actualizado"; 
+        return response()->json(['message' => "El empleado con el id {$employee->id} ha sido actualizado"], 200); 
     }
     
     public function destroy(Employee $employee){
         $employee->delete();
-        return "El empleado con el id $employee->id ha sido eliminado";
+        return response()->json(['message' => "El empleado con el id {$employee->id} ha sido eliminado"], 200);
     }
 }

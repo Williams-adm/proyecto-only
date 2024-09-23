@@ -17,8 +17,7 @@ class EmployeeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'paternalSurname' => $this->paternal_surname, 
-            'maternalSurname' => $this->maternal_surname, 
+            'lastName' => $this->paternal_surname . " " . $this->maternal_surname, 
             'dateOfBirth' => $this->date_of_birth,
             'salary' => $this->salary,
             'paymentDate' => $this->payment_date,
@@ -27,7 +26,6 @@ class EmployeeResource extends JsonResource
             'phones' => PhoneResource::collection($this->whenLoaded('phones')),
             'address' => AddressResource::collection($this->whenLoaded('addresses')),
             'user' => new UserResource($this->whenLoaded('user')),
-            'notes' => NoteResource::collection($this->whenLoaded('notes'))
         ];
     }
 }

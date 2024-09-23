@@ -14,10 +14,16 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $data = [
             'id' => $this->id,
             'email' => $this->email,
-            'status' => $this->status
         ];
+
+        if ($request->is('api/v1/employees')) 
+        { 
+            $data['status'] = $this->status;
+        }
+
+        return $data;
     }
 }

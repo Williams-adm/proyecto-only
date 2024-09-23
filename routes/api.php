@@ -16,9 +16,9 @@ Route::group(['prefix' => 'v1'], function(){
     Route::get('employees/{employee}/phones', [PhoneController::class, 'getPhonesByEmployee'])->name('phones.byEmployee');
 
     Route::prefix('employees')->controller(NoteController::class)->group(function (){
-        Route::post('/{employees}/notes', 'storeNoteForEmployee')->name('storeNote.byEmployee');
-        Route::get('/{employees}/notes', 'getNotesByEmployee')->name('notes.byEmployee') ;
-        Route::match(['put', 'patch'], '/{notes}', 'update');
-        Route::delete('/{notes}', 'destroy');
+        Route::post('/{employee}/notes', 'storeNoteForEmployee')->name('storeNote.byEmployee');
+        Route::get('/{employee}/notes', 'getNotesByEmployee')->name('notes.byEmployee') ;
+        Route::match(['put', 'patch'], '/{employee}/notes/{note}', 'update')->name('notesEmployee.update');
+        Route::delete('/{employee}/notes/{note}', 'destroy')->name('notesEmployee.destroy');
     });
 });
