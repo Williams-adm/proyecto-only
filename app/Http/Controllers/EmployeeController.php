@@ -10,6 +10,7 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -47,6 +48,12 @@ class EmployeeController extends Controller
             foreach($request->input('addresses') as $addressesData){
                 $employee->addresses()->create($addressesData);
             }
+
+            $employee->user()->create([
+                'email' => $request->input('user.email'),
+                'password' => Hash::make($request->input('user.password')),
+            ]);
+
             foreach($request->input('employee_documents') as $employeeDocumentsData){
                 $employee->EmployeeDocuments()->create($employeeDocumentsData);
             }

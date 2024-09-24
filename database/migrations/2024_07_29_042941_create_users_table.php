@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
-            $table->string('password'); /* 20 */
+            $table->string('password', 25);
             $table->boolean('status')->default(true);
             $table->unsignedBigInteger('employee_id')->unique();
             $table->foreign('employee_id')->references('id')

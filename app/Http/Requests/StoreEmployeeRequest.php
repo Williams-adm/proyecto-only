@@ -33,10 +33,10 @@ class StoreEmployeeRequest extends FormRequest
             'photoPath' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             /* validacion para  documentTypes */
             'documentTypes.*.type' => ['required', 'string', Rule::in(['DNI','PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])], 
-            'documentTypes.*.number' => ['required', 'string', 'between:6,15'],
+            'documentTypes.*.number' => ['required','numeric', 'digits_between:6,15'],
             /* validacion para phones */
             'phones.*.prefix' => ['required', 'string', 'between:2,5'],
-            'phones.*.number' => ['required', 'string', 'between:2,12'],
+            'phones.*.number' => ['required','numeric', 'digits_between:2,12'],
             /* /*validacion de address */
             'addresses.*.country' => ['required', 'string', 'max:20'],
             'addresses.*.region' => ['required', 'string', 'max:60'],
@@ -44,10 +44,12 @@ class StoreEmployeeRequest extends FormRequest
             'addresses.*.city' => ['required', 'string', 'max:60'],
             'addresses.*.street' => ['required', 'string', 'max:150'],
             'addresses.*.number' => ['required', 'string', 'between: 3,10'],
+            /* validacion usuario */
+            'user.email' => ['required', 'email:rfc,dns', 'unique:users,email'],
+            'user.password'=> ['required', 'string', 'between:8,25'],
             /*validacion de document employee*/
             'employeeDocuments.*.documentType' => ['nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
             'employeeDocuments.*.documentPath' => ['nullable', 'string']
-
         ];
     } 
 
