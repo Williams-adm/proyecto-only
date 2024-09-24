@@ -25,14 +25,14 @@ class UpdateNoteRequest extends FormRequest
         $method = $this->method();
         if($method == 'PUT'){
             return[
-                'noteText' => ['required', 'string'],
-                'reminderDate' => ['required', 'date_format:Y-m-d'],
+                'note_text' => ['required', 'string'],
+                'reminder_date' => ['required', 'date_format:Y-m-d'],
                 'completed' => ['required', 'boolean']
             ];
         }else{
             return[
-                'noteText' => ['sometimes','required', 'string'],
-                'reminderDate' => ['sometimes', 'required', 'date_format:Y-m-d'],
+                'note_text' => ['sometimes','required', 'string'],
+                'reminder_date' => ['sometimes', 'required', 'date_format:Y-m-d'],
                 'completed' => ['sometimes', 'required', 'boolean']
             ];
         }
@@ -40,21 +40,11 @@ class UpdateNoteRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->has('reminderDate')) {
-            $dateBirth = $this->input('reminderDate');
+        if ($this->has('reminder_date')) {
+            $dateBirth = $this->input('reminder_date');
             $this->merge([
-                'reminderDate' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
+                'reminder_date' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
             ]);
         };
-
-        if($this->noteText){
-            $this->merge(['note_text' => $this->noteText]);
-        }
-        if($this->reminderDate){
-            $this->merge(['reminder_date' => $this->reminderDate]);
-        }
-        if($this->completed){
-            $this->merge(['completed' => $this->completed]);
-        }
     }
 }

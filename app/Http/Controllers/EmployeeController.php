@@ -9,6 +9,10 @@ use App\Filters\EmployeeFilter;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
+use App\Models\Address;
+use App\Models\DocumentType;
+use App\Models\EmployeeDocument;
+use App\Models\Phone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -74,6 +78,62 @@ class EmployeeController extends Controller
 
     public function update(UpdateEmployeeRequest $request, Employee $employee){
         $employee->update($request->all());
+
+        if($request->has('document_types')){
+            foreach($request->document_types as $documentTypeData){
+                if(isset($documentTypeData['id'])){
+                    $document = DocumentType::find($documentTypeData['id']);
+                    if($document){
+                        $document->update($documentTypeData);
+                    }
+                }
+            }
+        }
+
+        if ($request->has('phones')) {
+            foreach ($request->phones as $phoneData) {
+                if (isset($phoneData['id'])) {
+                    $phone = Phone::find($phoneData['id']);
+                    if ($phone) {
+                        $phone->update($phoneData);
+                    }
+                }
+            }
+        }
+
+        if($request->has('addresses')){
+            foreach($request->addresses as $addressData){
+                if(isset($addressData['id'])){
+                    $address = Address::find($addressData['id']);
+                    if($address){
+                        $address->update($addressData);
+                    }
+                }
+            }
+        }
+
+        if ($request->has('user')) {
+            $userData = $request->input('user');  // Extraer los datos del usuario del request
+
+            // Suponiendo que el empleado tiene una relación uno a uno con User
+            $user = $employee->user;
+
+            if ($user) {
+                $user->update($userData);
+            }
+        }
+
+        if($request->has('employee_documents')){
+            foreach($request->employee_documents as $employeeDocData){
+                if(isset($employeeDocData['id'])){
+                    $employeeDocs = EmployeeDocument::find($employeeDocData['id']);
+                    if($employeeDocs){
+                        $employeeDocs->update($employeeDocData);
+                    }
+                }
+            }
+        }
+
         return response()->json(['message' => "El empleado con el id {$employee->id} ha sido actualizado"], 200); 
     }
     

@@ -21,8 +21,8 @@ class AddressResource extends JsonResource
             'province' => $this->province,
             'city' => $this->city,
             'street' => $this->street . " " . $this->number,
-            'addressableId' => $this->addressable_id,
-            'addressableType' => $this->addressable_type
+            'addressable_id' => $this->addressable_id,
+            'addressable_type' => $this->addressable_type
         ];
     }
 }

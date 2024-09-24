@@ -27,14 +27,14 @@ class UpdateEmployeeRequest extends FormRequest
         if($method == 'PUT'){
             return [
                 'name' => ['required', 'string', 'alpha', 'between:3,50'],
-                'paternalSurname' => ['required', 'string', 'alpha', 'between:3,25'],
-                'maternalSurname' => ['required', 'string', 'alpha', 'between:3,25'],
-                'dateOfBirth' => ['required', 'date_format:Y-m-d'],
+                'paternal_surname' => ['required', 'string', 'alpha', 'between:3,25'],
+                'maternal_surname' => ['required', 'string', 'alpha', 'between:3,25'],
+                'date_of_birth' => ['required', 'date_format:Y-m-d'],
                 'salary' => ['required', 'numeric', 'between:0, 10000', 'decimal:2'],
-                'paymentDate' => ['required', 'string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
-                'photoPath' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-                'documentTypes.*.type' => ['required', 'string', Rule::in(['DNI', 'PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])],
-                'documentTypes.*.number' => ['required', 'numeric', 'digits_between:6,15'],
+                'payment_date' => ['required', 'string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
+                'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+                'document_types.*.type' => ['required', 'string', Rule::in(['DNI', 'PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])],
+                'document_types.*.number' => ['required', 'numeric', 'digits_between:6,15'],
                 'phones.*.prefix' => ['required', 'string', 'between:2,5'],
                 'phones.*.number' => ['required', 'numeric', 'digits_between:2,12'],
                 'addresses.*.country' => ['required', 'string', 'max:20'],
@@ -45,20 +45,22 @@ class UpdateEmployeeRequest extends FormRequest
                 'addresses.*.number' => ['required', 'string', 'between: 3,10'],
                 'user.email' => ['required', 'email:rfc,dns', 'unique:users,email'],
                 'user.password' => ['required', 'string', 'between:8,25'],
-                'employeeDocuments.*.documentType' => ['nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
-                'employeeDocuments.*.documentPath' => ['nullable', 'string']
+                'employee_documents.*.document_type' => ['nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
+                'employee_documents.*.document_path' => ['nullable', 'string']
             ];
         }else{
             return [
                 'name' => ['sometimes', 'required', 'string', 'alpha', 'between:3,50'],
-                'paternalSurname' => ['sometimes', 'required', 'string', 'alpha', 'between:3,25'],
-                'maternalSurname' => ['sometimes', 'required', 'string', 'alpha', 'between:3,25'],
-                'dateOfBirth' => ['sometimes', 'required', 'date_format:Y-m-d'],
+                'paternal_surname' => ['sometimes', 'required', 'string', 'alpha', 'between:3,25'],
+                'maternal_surname' => ['sometimes', 'required', 'string', 'alpha', 'between:3,25'],
+                'date_of_birth' => ['sometimes', 'required', 'date_format:Y-m-d'],
                 'salary' => ['sometimes', 'required', 'numeric', 'between:0, 10000', 'decimal:2'],
-                'paymentDate' => ['sometimes', 'required', 'string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
-                'photoPath' => ['sometimes', 'nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-                'documentTypes.*.type' => ['sometimes', 'required', 'string', Rule::in(['DNI', 'PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])],
-                'documentTypes.*.number' => ['sometimes', 'required', 'numeric', 'digits_between:6,15'],
+                'payment_date' => ['sometimes', 'required', 'string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
+                'photo_path' => ['sometimes', 'nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+                'document_types.*.id' => ['nullable', 'exists:document_types,id'],
+                'document_types.*.type' => ['sometimes', 'required', 'string', Rule::in(['DNI', 'PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])],
+                'document_types.*.number' => ['sometimes', 'required', 'numeric', 'digits_between:6,15'],
+                'phones.*.id' => ['nullable', 'exists:phones,id'],
                 'phones.*.prefix' => ['sometimes', 'required', 'string', 'between:2,5'],
                 'phones.*.number' => ['sometimes', 'required', 'numeric', 'digits_between:2,12'],
                 'addresses.*.country' => ['sometimes', 'required', 'string', 'max:20'],
@@ -69,34 +71,35 @@ class UpdateEmployeeRequest extends FormRequest
                 'addresses.*.number' => ['sometimes', 'required', 'string', 'between: 3,10'],
                 'user.email' => ['sometimes', 'required', 'email:rfc,dns', 'unique:users,email'],
                 'user.password' => ['sometimes', 'required', 'string', 'between:8,25'],
-                'employeeDocuments.*.documentType' => ['sometimes', 'nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
-                'employeeDocuments.*.documentPath' => ['sometimes', 'nullable', 'string']
+                'employee_documents.*.id' => ['nullable', 'exists:employee_documents,id'],
+                'employee_documents.*.document_type' => ['sometimes', 'nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
+                'employee_documents.*.document_path' => ['sometimes', 'nullable', 'string']
             ];
         }
     }
 
     protected function prepareForValidation()
     {
-        if ($this->has('dateOfBirth')) {
-            $dateBirth = $this->input('dateOfBirth');
+        if ($this->has('date_of_birth')) {
+            $dateBirth = $this->input('date_of_birth');
             $this->merge([
-                'dateOfBirth' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
+                'date_of_birth' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
             ]);
         };
 
-        if ($this->has('paymentDate')) {
+        if ($this->has('payment_date')) {
             $this->merge([
-                'paymentDate' => strtoupper($this->input('paymentDate'))
+                'payment_date' => strtoupper($this->input('payment_date'))
             ]);
         }
-        if ($this->has('documentTypes')) {
-            $documentTypes = $this->input('documentTypes');
+        if ($this->has('document_types')) {
+            $documentTypes = $this->input('document_types');
             foreach ($documentTypes as &$document) {
                 if (isset($document['type'])) {
                     $document['type'] = strtoupper($document['type']);
                 }
             }
-            $this->merge(['documentTypes' => $documentTypes]);
+            $this->merge(['document_types' => $documentTypes]);
         }
 
         if ($this->has('addresses')) {
@@ -121,41 +124,17 @@ class UpdateEmployeeRequest extends FormRequest
             $this->merge(['addresses' => $addresses]);
         }
 
-        if ($this->has('employeeDocuments')) {
-            $employeeDocuments = $this->input('employeeDocuments');
+        if ($this->has('employee_documents')) {
+            $employeeDocuments = $this->input('employee_documents');
             foreach ($employeeDocuments as &$document) {
-                if (isset($document['documentType'])) {
-                    $document['documentType'] = strtoupper($document['documentType']);
+                if (isset($document['document_type'])) {
+                    $document['document_type'] = strtoupper($document['document_type']);
                 }
-                if (isset($document['documentPath'])) {
-                    $document['document_path'] = $document['documentPath'];
+                if (isset($document['document_path'])) {
+                    $document['document_path'] = $document['document_path'];
                 }
             }
-            $this->merge(['employeeDocuments' => $employeeDocuments]);
-        }
-
-        if($this->paternalSurname){
-            $this->merge(['paternal_surname' => $this->paternalSurname]);
-        }
-        
-        if($this->maternalSurname){
-            $this->merge(['maternal_surname' => $this->maternalSurname]);
-        }
-
-        if($this->dateOfBirth){
-            $this->merge(['date_of_birth' => $this->dateOfBirth]);
-        }
-
-        if($this->paymentDate){
-            $this->merge(['payment_date' => $this->paymentDate]);
-        }
-
-        if($this->photoPath){
-            $this->merge(['photo_path' => $this->photoPath]);
-        }
-
-        if($this->user){
-            $this->merge(['user.email' => $this->email]);
+            $this->merge(['employee_documents' => $employeeDocuments]);
         }
     }
 }

@@ -18,12 +18,12 @@ class EmployeeCollection extends ResourceCollection
             'data' => $this->collection->transform(function ($employee){
                 return[
                     'id' => $employee->id,
-                    'fullName' => $employee->name . ' ' . $employee->paternal_surname . ' ' . $employee->maternal_surname,
+                    'full_name' => $employee->name . ' ' . $employee->paternal_surname . ' ' . $employee->maternal_surname,
                     /* 'phone' => PhoneResource::collection($employee->whenLoaded('phones')), */
                     'user' => new UserResource($employee->whenLoaded('user')),
                     'roles' => RoleResource::collection($employee->whenLoaded('roles')),
                     'photo' => $employee->photo_path,
-                    'registrarionDate' => $employee->created_at,
+                    'registrarion_date' => $employee->created_at,
                 ];
             })->all(),
         ];

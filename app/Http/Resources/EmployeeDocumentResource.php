@@ -16,9 +16,9 @@ class EmployeeDocumentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'documentType' => $this->document_type,
+            'document_type' => $this->document_type,
             /* 'employeeID' => $this->employee_id, */
-            'documentPath' => $this->document_path
+            'document_path' => $this->document_path
         ];
     }
 }

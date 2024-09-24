@@ -16,11 +16,11 @@ class NoteResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'noteText' => $this->note_text,
-            'reminderDate' => $this->reminder_date,
+            'note_text' => $this->note_text,
+            'reminder_date' => $this->reminder_date,
             'completed' => $this->completed,
-            'noteableId' => $this->noteable_id,
-            'noteableType' => $this->noteable_type 
+            'noteable_id' => $this->noteable_id,
+            'noteable_type' => $this->noteable_type 
         ];
     }
 }

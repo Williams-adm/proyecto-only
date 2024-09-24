@@ -25,15 +25,15 @@ class StoreEmployeeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'alpha', 'between:3,50'],
-            'paternalSurname' => ['required', 'string', 'alpha', 'between:3,25'],
-            'maternalSurname' => ['required', 'string', 'alpha', 'between:3,25'],
-            'dateOfBirth' => ['required', 'date_format:Y-m-d'],
+            'paternal_surname' => ['required', 'string', 'alpha', 'between:3,25'],
+            'maternal_surname' => ['required', 'string', 'alpha', 'between:3,25'],
+            'date_of_birth' => ['required', 'date_format:Y-m-d'],
             'salary' => ['required', 'numeric', 'between:0, 10000', 'decimal:2'],
-            'paymentDate' => ['required','string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
-            'photoPath' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'payment_date' => ['required','string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
+            'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             /* validacion para  documentTypes */
-            'documentTypes.*.type' => ['required', 'string', Rule::in(['DNI','PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])], 
-            'documentTypes.*.number' => ['required','numeric', 'digits_between:6,15'],
+            'document_types.*.type' => ['required', 'string', Rule::in(['DNI','PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])], 
+            'document_types.*.number' => ['required','numeric', 'digits_between:6,15'],
             /* validacion para phones */
             'phones.*.prefix' => ['required', 'string', 'between:2,5'],
             'phones.*.number' => ['required','numeric', 'digits_between:2,12'],
@@ -48,34 +48,34 @@ class StoreEmployeeRequest extends FormRequest
             'user.email' => ['required', 'email:rfc,dns', 'unique:users,email'],
             'user.password'=> ['required', 'string', 'between:8,25'],
             /*validacion de document employee*/
-            'employeeDocuments.*.documentType' => ['nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
-            'employeeDocuments.*.documentPath' => ['nullable', 'string']
+            'employee_documents.*.document_type' => ['nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
+            'employee_documents.*.document_path' => ['nullable', 'string']
         ];
     } 
 
     protected function prepareForValidation()
     {
-        if ($this->has('dateOfBirth')) {
-            $dateBirth = $this->input('dateOfBirth');
+        if ($this->has('date_of_birth')) {
+            $dateBirth = $this->input('date_of_birth');
             $this->merge([
-                'dateOfBirth' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
+                'date_of_birth' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
             ]);
         };
 
-        if($this->has('paymentDate')){
+        if($this->has('payment_date')){
             $this->merge([
-                'paymentDate' => strtoupper($this->input('paymentDate'))
+                'payment_date' => strtoupper($this->input('payment_date'))
             ]);
         }
 
-        if ($this->has('documentTypes')) {
-            $documentTypes = $this->input('documentTypes');
+        if ($this->has('document_types')) {
+            $documentTypes = $this->input('document_types');
             foreach ($documentTypes as &$document) {
                 if (isset($document['type'])) {
                     $document['type'] = strtoupper($document['type']);
                 }
             }
-            $this->merge(['documentTypes' => $documentTypes]);
+            $this->merge(['document_types' => $documentTypes]);
         }
 
         if ($this->has('addresses')) {
@@ -100,28 +100,17 @@ class StoreEmployeeRequest extends FormRequest
             $this->merge(['addresses' => $addresses]);
         }
 
-       if ($this->has('employeeDocuments')) {
-            $employeeDocuments = $this->input('employeeDocuments');
+       if ($this->has('employee_documents')) {
+            $employeeDocuments = $this->input('employee_documents');
             foreach ($employeeDocuments as &$document) {
-                if (isset($document['documentType'])) {
-                    $document['documentType'] = strtoupper($document['documentType']);
+                if (isset($document['document_type'])) {
+                    $document['document_type'] = strtoupper($document['document_type']);
                 }
-                if(isset($document['documentPath'])){
-                    $document['document_path'] = $document['documentPath'];
+                if(isset($document['document_path'])){
+                    $document['document_path'] = $document['document_path'];
                 }
             }
-            $this->merge(['employeeDocuments' => $employeeDocuments]);
+            $this->merge(['employee_documents' => $employeeDocuments]);
         }
-        
-        $this->merge([
-            'paternal_surname' => $this->paternalSurname,
-            'maternal_surname' => $this->maternalSurname,
-            'date_of_birth' => $this->dateOfBirth,
-            'payment_date' => $this->paymentDate,
-            'photo_path' => $this->photoPath,
-            'document_types' => $this->documentTypes,
-            'employee_documents' =>$this->employeeDocuments,
-            'document_type' => $this->documentType,
-        ]);
     }
 }

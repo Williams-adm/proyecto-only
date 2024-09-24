@@ -23,23 +23,18 @@ class StoreNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'noteText' => ['required', 'string'],
-            'reminderDate' => ['required', 'date_format:Y-m-d'],
+            'note_text' => ['required', 'string'],
+            'reminder_date' => ['required', 'date_format:Y-m-d'],
         ];
     }
 
     protected function prepareForValidation()
     {
-        if ($this->has('reminderDate')) {
-            $dateBirth = $this->input('reminderDate');
+        if ($this->has('reminder_date')) {
+            $dateBirth = $this->input('reminder_date');
             $this->merge([
-                'reminderDate' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
+                'reminder_date' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
             ]);
         };
-
-        $this->merge([
-            'note_text' => $this->noteText,
-            'reminder_date' => $this->reminderDate,
-        ]);
     }
 }
