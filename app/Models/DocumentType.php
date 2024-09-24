@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DocumentType extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = [
+        'type',
+        'number',
+        'documentable_id',
+        'documentable_type'
+    ];
     
     public function documentable(){
         return $this->morphTo();

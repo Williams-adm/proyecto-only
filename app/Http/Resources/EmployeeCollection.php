@@ -23,7 +23,7 @@ class EmployeeCollection extends ResourceCollection
                     'user' => new UserResource($employee->whenLoaded('user')),
                     'roles' => RoleResource::collection($employee->whenLoaded('roles')),
                     'photo' => $employee->photo_path,
-                    'registrarion_date' => $employee->created_at,
+                    'registrarionDate' => $employee->created_at,
                 ];
             })->all(),
         ];

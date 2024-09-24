@@ -46,6 +46,15 @@ class Address extends Model
         );
     }
 
+    public function getaddressableTypeAttribute()
+    {
+        $typeMap = [
+            'App\Models\Employee' => 'Employee',
+            'App\Models\Customer' => 'Customer',
+        ];
+
+        return $typeMap[$this->attributes['addressable_type']] ?? 'Unknown';
+    }
 
     public function addressable(){
         return $this->morphTo();

@@ -89,7 +89,7 @@ class Employee extends Model
     }
 
     /* relacion 1 a muchos polimorfica */
-    public function documenttypes(){
+    public function documentTypes(){
         return $this->morphMany(DocumentType::class , 'documentable');
     }
 

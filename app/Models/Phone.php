@@ -9,7 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class Phone extends Model
 {
     use HasFactory;
-    protected $guarded=[];
+    protected $fillable = [
+        'prefix',
+        'number',
+        'phoneable_id',
+        'phoneable_type'
+    ];
 
     public function getPhoneableTypeAttribute()
     {

@@ -26,6 +26,7 @@ class EmployeeResource extends JsonResource
             'phones' => PhoneResource::collection($this->whenLoaded('phones')),
             'address' => AddressResource::collection($this->whenLoaded('addresses')),
             'user' => new UserResource($this->whenLoaded('user')),
+            'documents' => EmployeeDocumentResource::collection($this->whenLoaded('employeeDocuments'))
         ];
     }
 }

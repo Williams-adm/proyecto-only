@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('document_types', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['DNI', 'PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS']);
-            $table->string('number', 15);
+            $table->string('number', 15)->unique();
             $table->unique(['type', 'number', 'documentable_id', 'documentable_type'], 'doc_type_num_unique');
             $table->unsignedBigInteger('documentable_id');
             $table->string('documentable_type');
