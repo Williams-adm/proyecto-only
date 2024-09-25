@@ -11,7 +11,8 @@ class User extends Model
 
     protected $fillable = [
         'email',
-        'password'
+        'password',
+        'status'
     ];
     /* Relacion de 1 a 1 
     belongsTo: Se usa en el modelo que tiene la clave foránea. 

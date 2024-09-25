@@ -33,18 +33,27 @@ class UpdateEmployeeRequest extends FormRequest
                 'salary' => ['required', 'numeric', 'between:0, 10000', 'decimal:2'],
                 'payment_date' => ['required', 'string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
                 'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+                /* documentotype */
+                'document_types.*.id' => ['required', 'exists:document_types,id'],
                 'document_types.*.type' => ['required', 'string', Rule::in(['DNI', 'PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])],
                 'document_types.*.number' => ['required', 'numeric', 'digits_between:6,15'],
+                /* phones */
+                'phones.*.id' => ['required', 'exists:phones,id'],
                 'phones.*.prefix' => ['required', 'string', 'between:2,5'],
                 'phones.*.number' => ['required', 'numeric', 'digits_between:2,12'],
+                /* address */
+                'addresses.*.id' => ['required', 'exists:addresses,id'],
                 'addresses.*.country' => ['required', 'string', 'max:20'],
                 'addresses.*.region' => ['required', 'string', 'max:60'],
                 'addresses.*.province' => ['required', 'string', 'max:60'],
                 'addresses.*.city' => ['required', 'string', 'max:60'],
                 'addresses.*.street' => ['required', 'string', 'max:150'],
                 'addresses.*.number' => ['required', 'string', 'between: 3,10'],
+                /* user */
                 'user.email' => ['required', 'email:rfc,dns', 'unique:users,email'],
                 'user.password' => ['required', 'string', 'between:8,25'],
+                /* employe documents */
+                'employee_documents.*.id' => ['required', 'exists:employee_documents,id'],
                 'employee_documents.*.document_type' => ['nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
                 'employee_documents.*.document_path' => ['nullable', 'string']
             ];
@@ -57,20 +66,26 @@ class UpdateEmployeeRequest extends FormRequest
                 'salary' => ['sometimes', 'required', 'numeric', 'between:0, 10000', 'decimal:2'],
                 'payment_date' => ['sometimes', 'required', 'string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
                 'photo_path' => ['sometimes', 'nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+                /* documentotype */
                 'document_types.*.id' => ['nullable', 'exists:document_types,id'],
                 'document_types.*.type' => ['sometimes', 'required', 'string', Rule::in(['DNI', 'PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])],
                 'document_types.*.number' => ['sometimes', 'required', 'numeric', 'digits_between:6,15'],
+                /* phones */
                 'phones.*.id' => ['nullable', 'exists:phones,id'],
                 'phones.*.prefix' => ['sometimes', 'required', 'string', 'between:2,5'],
                 'phones.*.number' => ['sometimes', 'required', 'numeric', 'digits_between:2,12'],
+                /* address */
+                'addresses.*.id' => ['nullable', 'exists:addresses,id'],
                 'addresses.*.country' => ['sometimes', 'required', 'string', 'max:20'],
                 'addresses.*.region' => ['sometimes', 'required', 'string', 'max:60'],
                 'addresses.*.province' => ['sometimes', 'required', 'string', 'max:60'],
                 'addresses.*.city' => ['sometimes', 'required', 'string', 'max:60'],
                 'addresses.*.street' => ['sometimes', 'required', 'string', 'max:150'],
                 'addresses.*.number' => ['sometimes', 'required', 'string', 'between: 3,10'],
+                /* user */
                 'user.email' => ['sometimes', 'required', 'email:rfc,dns', 'unique:users,email'],
                 'user.password' => ['sometimes', 'required', 'string', 'between:8,25'],
+                /* employe documents */
                 'employee_documents.*.id' => ['nullable', 'exists:employee_documents,id'],
                 'employee_documents.*.document_type' => ['sometimes', 'nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
                 'employee_documents.*.document_path' => ['sometimes', 'nullable', 'string']
@@ -106,19 +121,19 @@ class UpdateEmployeeRequest extends FormRequest
             $addresses = $this->input('addresses');
             foreach ($addresses as &$address) {
                 if (!isset($address['country'])) {
-                    $address['country'] = 'Peru';
+                    $address['country'] = 'peru';
                 }
                 if (!isset($address['region'])) {
-                    $address['region'] = 'Junin';
+                    $address['region'] = 'junin';
                 }
                 if (isset($address['province'])) {
-                    $address['province'] = ucwords($address['province']);
+                    $address['province'] = strtolower($address['province']);
                 }
                 if (isset($address['city'])) {
-                    $address['city'] = ucwords($address['city']);
+                    $address['city'] = strtolower($address['city']);
                 }
                 if (isset($address['street'])) {
-                    $address['street'] = ucwords($address['street']);
+                    $address['street'] = strtolower($address['street']);
                 }
             }
             $this->merge(['addresses' => $addresses]);

@@ -82,9 +82,14 @@ class EmployeeController extends Controller
         if($request->has('document_types')){
             foreach($request->document_types as $documentTypeData){
                 if(isset($documentTypeData['id'])){
-                    $document = DocumentType::find($documentTypeData['id']);
+                    $document = DocumentType::where('id', $documentTypeData['id'])
+                    ->where('documentable_id', $employee->id)
+                    ->where('documentable_type', Employee::class)
+                    ->first();
                     if($document){
                         $document->update($documentTypeData);
+                    } else {
+                        return response()->json(['error' => 'El tipo documento no está relacionado con este empleado.'], 403);
                     }
                 }
             }
@@ -93,9 +98,14 @@ class EmployeeController extends Controller
         if ($request->has('phones')) {
             foreach ($request->phones as $phoneData) {
                 if (isset($phoneData['id'])) {
-                    $phone = Phone::find($phoneData['id']);
+                    $phone = Phone::where('id', $phoneData['id'])
+                    ->where('phoneable_id', $employee->id)
+                    ->where('phoneable_type', Employee::class)
+                    ->first();
                     if ($phone) {
                         $phone->update($phoneData);
+                    } else {
+                        return response()->json(['error' => 'El telefono no está relacionado con este empleado.'], 403);
                     }
                 }
             }
@@ -104,21 +114,26 @@ class EmployeeController extends Controller
         if($request->has('addresses')){
             foreach($request->addresses as $addressData){
                 if(isset($addressData['id'])){
-                    $address = Address::find($addressData['id']);
+                    $address = Address::where('id', $addressData['id'])
+                    ->where('addressable_id', $employee->id)
+                    ->where('addressable_type', Employee::class)
+                    ->first();
                     if($address){
                         $address->update($addressData);
+                    } else {
+                        return response()->json(['error' => 'La direccion no está relacionado con este empleado.'], 403);
                     }
                 }
             }
         }
 
         if ($request->has('user')) {
-            $userData = $request->input('user');  // Extraer los datos del usuario del request
-
-            // Suponiendo que el empleado tiene una relación uno a uno con User
+            $userData = $request->input('user');
             $user = $employee->user;
-
             if ($user) {
+                if(isset($userData['password'])){
+                    $userData['password'] = Hash::make($userData['password']);
+                }
                 $user->update($userData);
             }
         }
@@ -126,9 +141,13 @@ class EmployeeController extends Controller
         if($request->has('employee_documents')){
             foreach($request->employee_documents as $employeeDocData){
                 if(isset($employeeDocData['id'])){
-                    $employeeDocs = EmployeeDocument::find($employeeDocData['id']);
+                    $employeeDocs = EmployeeDocument::where('id', $employeeDocData['id'])
+                    ->where('employee_id', $employee->id)
+                    ->first();
                     if($employeeDocs){
                         $employeeDocs->update($employeeDocData);
+                    } else {
+                        return response()->json(['error' => 'El documento no está relacionado con este empleado.'], 403);
                     }
                 }
             }
