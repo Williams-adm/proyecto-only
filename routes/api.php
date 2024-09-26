@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\PhoneController;
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('employees', EmployeeController::class);
-
     Route::get('employees/{employee}/phones', [PhoneController::class, 'getPhonesByEmployee'])->name('phones.byEmployee');
     Route::patch('employees/{employee}/user', [UserController::class, 'update'])->name('user.update');
     Route::prefix('employees')->controller(NoteController::class)->group(function (){
@@ -22,4 +22,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::match(['put', 'patch'], '/{employee}/notes/{note}', 'update')->name('notesEmployee.update');
         Route::delete('/{employee}/notes/{note}', 'destroy')->name('notesEmployee.destroy');
     });
+
+    Route::apiResource('customers', CustomerController::class);
+
 });
