@@ -9,7 +9,7 @@ class DetailImage extends Model
 {
     use HasFactory;
 
-    public function detailvalue(){
+    public function detailValue(){
         return $this->belongsTo(DetailValue::class, 'detail_value_id');
     }
 }

@@ -28,7 +28,6 @@ class EmployeeController extends Controller
     }
 
     public function store(StoreEmployeeRequest $request){
-        /* return new EmployeeResource(Employee::create($request->all())); */
         DB::beginTransaction();
         try{
             $employee = Employee::create([

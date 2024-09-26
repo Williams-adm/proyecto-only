@@ -9,7 +9,7 @@ class CashTransaction extends Model
 {
     use HasFactory;
 
-    public function CashCount(){
+    public function cashCount(){
         return $this->belongsTo(CashCount::class);
     }
 }

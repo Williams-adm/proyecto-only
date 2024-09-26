@@ -20,7 +20,8 @@ class CustomerFactory extends Factory
             'name' => $this->faker-> words(2, true),
             'paternal_surname' => $this->faker->word(),
             'maternal_surname' => $this->faker->word(),
-            'date_of_birth' => $this->faker->date()
+            'date_of_birth' => $this->faker->date(),
+            'email' => $this->faker->safeEmail()
         ];
     }
 }

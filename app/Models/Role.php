@@ -17,11 +17,11 @@ class Role extends Model
         );
     }
 
-    public function Employees(){
+    public function employees(){
         return $this->belongsToMany(Employee::class);
     }
 
-    public function Permissions(){
+    public function permissions(){
         return $this->belongsToMany(Permission::class);
     }
 }

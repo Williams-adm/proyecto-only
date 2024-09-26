@@ -27,7 +27,7 @@ class EmployeeDocument extends Model
         );
     }
 
-    public function Employee(){
+    public function employee(){
         return $this->belongsTo(Employee::class);
     }
 }

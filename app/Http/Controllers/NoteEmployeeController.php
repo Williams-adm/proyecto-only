@@ -8,7 +8,7 @@ use App\Http\Resources\NoteResource;
 use App\Models\Employee;
 use App\Models\Note;
 
-class NoteController extends Controller
+class NoteEmployeeController extends Controller
 {
     public function storeNoteForEmployee(StoreNoteRequest $request, Employee $employee){
         $note = Note::create([

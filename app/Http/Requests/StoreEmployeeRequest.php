@@ -88,13 +88,13 @@ class StoreEmployeeRequest extends FormRequest
                     $address['region'] = 'Junin';
                 }
                 if(isset($address['province'])){
-                    $address['province'] = ucwords($address['province']);
+                    $address['province'] = strtolower($address['province']);
                 }
                 if(isset($address['city'])){
-                    $address['city'] = ucwords($address['city']);
+                    $address['city'] = strtolower($address['city']);
                 }
                 if(isset($address['street'])){
-                    $address['street'] = ucwords($address['street']);
+                    $address['street'] = strtolower($address['street']);
                 }
             }
             $this->merge(['addresses' => $addresses]);

@@ -17,7 +17,7 @@ class Sale extends Model
         return $this->belongsTo(Employee::class);
     }
 
-    public function CashCount(){
+    public function cashCount(){
         return $this->belongsTo(CashCount::class);
     }
 
@@ -25,7 +25,7 @@ class Sale extends Model
         return $this->hasOne(Voucher::class);
     }
 
-    public function paymentmethods(){
+    public function paymentMethods(){
         return $this->belongsToMany(PaymentMethod::class , 'payment_method_sale')
         ->withPivot('quantity')->withTimestamps();
     }

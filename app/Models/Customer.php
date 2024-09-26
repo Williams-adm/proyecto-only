@@ -6,11 +6,56 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
     use HasFactory;
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) => $value ? ucwords($value) : '', /* Accesor Formateo para la vista */
+            set: fn(string $value) => strtolower($value)/* Mutador como se guarda en la db */
+        );
+    }
+
+    protected function paternalSurname(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) =>$value ? ucwords($value) : '',
+            set: fn(string $value) => strtolower($value)
+        );
+    }
+
+    protected function maternalSurname(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) => $value ? ucwords($value) : '', 
+            set: fn(string $value) => strtolower($value)
+        );
+    }
+
+    protected function businessName(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) => $value ? ucwords($value) : '', 
+            set: fn(string $value) => strtolower($value)
+        );
+    }
+    protected function fiscalAddress(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) => $value ? ucwords($value) : '', 
+            set: fn(string $value) => strtolower($value)
+        );
+    }
+
+    protected function dateOfBirth(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->format('d-m-Y'),
+        );
+    }
 
     protected function createdAt(): Attribute
     {
@@ -19,15 +64,15 @@ class Customer extends Model
         );
     }
 
-    public function TypeRecords(){
+    public function typeRecords(){
         return $this->hasMany(TypeRecord::class);
     }
 
-    public function Sales(){
+    public function sales(){
         return $this->hasMany(Sale::class);
     }
 
-    public function documenttypes()
+    public function documentTypes()
     {
         return $this->morphMany(DocumentType::class, 'documentable');
     }

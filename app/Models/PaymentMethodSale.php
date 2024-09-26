@@ -13,7 +13,7 @@ class PaymentMethodSale extends Model
         return $this->belongsTo(Sale::class);
     }
 
-    public function paymentmethod(){
+    public function paymentMethod(){
         return $this->belongsTo(PaymentMethod::class);
     }
 }

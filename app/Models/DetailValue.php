@@ -18,7 +18,7 @@ class DetailValue extends Model
         return $this->belongsTo(Detail::class);
     }
 
-    public function detailimages(){
+    public function detailImages(){
         return $this->hasMany(DetailImage::class);
     }
 }

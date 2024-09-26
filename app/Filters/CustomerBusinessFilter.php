@@ -5,19 +5,17 @@ namespace App\Filters;
 use Illuminate\Http\Request;
 use App\Filters\ApiFilter;
 
-class CustomerFilter extends ApiFilter
+class CustomerBusinessFilter extends ApiFilter
 {
     protected $safeParams = [
-        'name' => ['eq'],
-        'paternalSurname' => ['eq'],
-        'maternalSurname' => ['eq'],
-        'dateOfBrith' => ['eq', 'lt', 'lte', 'gte', 'ne'],
+        'businessName' => ['eq'],
+        'fiscalAddress' => ['eq'],
         'registrationDate' => ['eq', 'lt', 'lte', 'gte', 'ne'],
     ];
     protected $columnMap = [
-        'paternalSurname' => 'paternal_surname',
-        'maternalSurname' => 'maternal_surname',
-        'dateOfBrith' => 'date_of_brith',
+        'businessName' => 'business_name',
+        'fiscalAddress' => 'fiscal_address',
+        'registrationDate' => 'registration_date'
     ];
     protected $operatorMap = [
         'eq' => '=',

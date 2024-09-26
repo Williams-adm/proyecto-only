@@ -24,7 +24,7 @@ class Employee extends Model
 
     protected function name(): Attribute{
         return Attribute::make(
-            get: fn (string $value) => ucfirst($value), /* Accesor Formateo para la vista */
+            get: fn (string $value) => ucwords($value), /* Accesor Formateo para la vista */
             set: fn(string $value) => strtolower($value)/* Mutador como se guarda en la db */
         );
     }
@@ -75,11 +75,11 @@ class Employee extends Model
     }
 
     /* Relacion de 1 a muchos */
-    public function EmployeeDocuments(){
+    public function employeeDocuments(){
         return $this->hasMany(EmployeeDocument::class);
     }
 
-    public function Sales(){
+    public function sales(){
         return $this->hasMany(Sale::class);
     }
 

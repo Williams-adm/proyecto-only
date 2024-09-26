@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable();
             $table->string('business_name', 85)->nullable();
             $table->string('fiscal_address')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->timestamps();
         });
     }

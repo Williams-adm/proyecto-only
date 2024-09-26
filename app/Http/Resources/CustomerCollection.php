@@ -19,7 +19,9 @@ class CustomerCollection extends ResourceCollection
                 return [
                     'id' => $customer->id,
                     'full_name' => $customer->name . ' ' . $customer->paternal_surname . ' ' . $customer->maternal_surname,
-                    'registrarion_date' => $customer->created_at,
+                    'document_types' => DocumentTypeResource::collection($customer->whenLoaded('documentTypes')),
+                    'type_record' => TypeRecordResource::collection($customer->whenLoaded('typeRecords')),
+                    'registration_date' => $customer->created_at,
                 ];
             })->all(),
         ];

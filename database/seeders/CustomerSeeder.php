@@ -18,17 +18,19 @@ class CustomerSeeder extends Seeder
     public function run(): void
     {
         Customer::create([
-            'name' => ucwords('Francisco'),
-            'paternal_surname' => ucwords('Sanchez'),
-            'maternal_surname' => ucwords('Gaston'),
-            'date_of_birth' => '2000-05-23'
+            'name' => ucwords('francisco'),
+            'paternal_surname' => ucwords('sanchez'),
+            'maternal_surname' => ucwords('gaston'),
+            'date_of_birth' => '2000-05-23',
+            'email' => 'francisco-21@gmail.com'
         ]);
         
         Customer::create([
-            'name' => ucwords('Pepito'),
-            'paternal_surname' => ucwords('Orlando'),
-            'maternal_surname' => ucwords('Sac'),
-            'date_of_birth' => '1998-02-05'
+            'name' => ucwords('pepito'),
+            'paternal_surname' => ucwords('orlando'),
+            'maternal_surname' => ucwords('sac'),
+            'date_of_birth' => '1998-02-05',
+            'email' => 'pepito-11@gmail.com'
         ]);
 
         Customer::factory(13)->create();
