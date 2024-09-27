@@ -11,11 +11,21 @@ class Customer extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'paternal_surname',
+        'maternal_surname',
+        'date_of_birth',
+        'business_name',
+        'fiscal_address',
+        'email'
+    ];
+
     protected function name(): Attribute
     {
         return Attribute::make(
             get: fn(?string $value) => $value ? ucwords($value) : '', /* Accesor Formateo para la vista */
-            set: fn(string $value) => strtolower($value)/* Mutador como se guarda en la db */
+            set: fn(?string $value) => $value ? strtolower($value) : ''/* Mutador como se guarda en la db */
         );
     }
 
@@ -23,30 +33,30 @@ class Customer extends Model
     {
         return Attribute::make(
             get: fn(?string $value) =>$value ? ucwords($value) : '',
-            set: fn(string $value) => strtolower($value)
+            set: fn(?string $value) => $value ? strtolower($value) : ''
         );
     }
 
     protected function maternalSurname(): Attribute
     {
         return Attribute::make(
-            get: fn(?string $value) => $value ? ucwords($value) : '', 
-            set: fn(string $value) => strtolower($value)
+            get: fn(?string $value) => $value ? ucwords($value) : '',
+            set: fn(?string $value) => $value ? strtolower($value) : ''
         );
     }
 
     protected function businessName(): Attribute
     {
         return Attribute::make(
-            get: fn(?string $value) => $value ? ucwords($value) : '', 
-            set: fn(string $value) => strtolower($value)
+            get: fn(?string $value) => $value ? ucwords($value) : '',
+            set: fn(?string $value) => $value ? strtolower($value) : ''
         );
     }
     protected function fiscalAddress(): Attribute
     {
         return Attribute::make(
-            get: fn(?string $value) => $value ? ucwords($value) : '', 
-            set: fn(string $value) => strtolower($value)
+            get: fn(?string $value) => $value ? ucwords($value) : '',
+            set: fn(?string $value) => $value ? strtolower($value) : ''
         );
     }
 

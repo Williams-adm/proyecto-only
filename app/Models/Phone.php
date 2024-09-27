@@ -12,8 +12,6 @@ class Phone extends Model
     protected $fillable = [
         'prefix',
         'number',
-        'phoneable_id',
-        'phoneable_type'
     ];
 
     public function getPhoneableTypeAttribute()

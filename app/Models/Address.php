@@ -9,7 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = [
+        'country',
+        'region',
+        'province',
+        'city',
+        'street',
+        'number',
+    ];
 
     protected function country(): Attribute
     {

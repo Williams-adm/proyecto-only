@@ -20,8 +20,11 @@ class CustomerBusinessCollection extends ResourceCollection
                     'id' => $customer->id,
                     'business_name' => $customer->business_name,
                     'fiscal_address' => $customer->fiscal_address,
+                    'document_types' => $customer->relationLoaded('documentTypes')
+                    ? DocumentTypeResource::collection($customer->documentTypes)
+                    : null,
                     'type_record' => $customer->relationLoaded('typeRecords')
-                    ? TypeRecordResource::collection($customer->typerecords)
+                    ? TypeRecordResource::collection($customer->typeRecords)
                     : null,
                     'registration_date' => $customer->created_at,
                 ];

@@ -37,7 +37,7 @@ class StoreEmployeeRequest extends FormRequest
             /* validacion para phones */
             'phones.*.prefix' => ['required', 'string', 'between:2,5'],
             'phones.*.number' => ['required','numeric', 'digits_between:2,12'],
-            /* /*validacion de address */
+            /*validacion de address */
             'addresses.*.country' => ['required', 'string', 'max:20'],
             'addresses.*.region' => ['required', 'string', 'max:60'],
             'addresses.*.province' => ['required', 'string', 'max:60'],
@@ -49,7 +49,7 @@ class StoreEmployeeRequest extends FormRequest
             'user.password'=> ['required', 'string', 'between:8,25'],
             /*validacion de document employee*/
             'employee_documents.*.document_type' => ['nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
-            'employee_documents.*.document_path' => ['nullable', 'string']
+            'employee_documents.*.document_path' => ['nullable', 'string'] /* cambiar a file luego */
         ];
     } 
 

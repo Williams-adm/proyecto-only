@@ -9,6 +9,10 @@ class TypeRecord extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'type'
+    ];
+
     public function customer(){
         return $this->belongsTo(Customer::class);
     }
