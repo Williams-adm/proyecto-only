@@ -23,11 +23,11 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['nullable', 'string', 'alpha', 'between:3,65'],
-            'paternal_surname' => ['nullable', 'string', 'alpha', 'between:3,65'],
-            'maternal_surname' => ['nullable', 'string', 'alpha', 'between:3,65'],
+            'name' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,65'],
+            'paternal_surname' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,65'],
+            'maternal_surname' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,65'],
             'date_of_birth' => ['nullable', 'date_format:Y-m-d'],
-            'business_name' => ['nullable', 'string', 'alpha', 'between:3,85'],
+            'business_name' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,85'],
             'fiscal_address' => ['nullable', 'string', 'between:3,85'],
             'email' => ['nullable', 'email:rfc,dns', 'unique:customers,email'],
             /* validacion para  documentTypes */
@@ -37,10 +37,10 @@ class StoreCustomerRequest extends FormRequest
             'phones.*.prefix' => ['required', 'string', 'between:2,5'],
             'phones.*.number' => ['required', 'numeric', 'digits_between:2,12'],
             /*validacion de address */
-            'addresses.*.country' => ['required', 'string', 'max:20'],
-            'addresses.*.region' => ['required', 'string', 'max:60'],
-            'addresses.*.province' => ['required', 'string', 'max:60'],
-            'addresses.*.city' => ['required', 'string', 'max:60'],
+            'addresses.*.country' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'max:20'],
+            'addresses.*.region' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'max:60'],
+            'addresses.*.province' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'max:60'],
+            'addresses.*.city' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'max:60'],
             'addresses.*.street' => ['required', 'string', 'max:150'],
             'addresses.*.number' => ['required', 'string', 'between: 3,10'],
         ];
@@ -79,6 +79,5 @@ class StoreCustomerRequest extends FormRequest
             }
             $this->merge(['addresses' => $addresses]);
         }
-
     }
 }

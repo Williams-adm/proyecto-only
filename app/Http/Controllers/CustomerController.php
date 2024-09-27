@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use App\Filters\CustomerFilter;
 use App\Filters\CustomerBusinessFilter;
 use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerBusinessCollection;
 use App\Http\Resources\CustomerCollection;
 use App\Http\Resources\CustomerResource;
+use App\Models\Address;
 use App\Models\Customer;
+use App\Models\DocumentType;
+use App\Models\Phone;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -83,11 +87,61 @@ class CustomerController extends Controller
         return new CustomerResource($customer);
     }
 
-    public function update(){
+    public function update(UpdateCustomerRequest $request, Customer $customer){
+        $customer->update($request->all());
 
+        if ($request->has('document_types')) {
+            foreach ($request->document_types as $documentTypeData) {
+                if (isset($documentTypeData['id'])) {
+                    $document = DocumentType::where('id', $documentTypeData['id'])
+                        ->where('documentable_id', $customer->id)
+                        ->where('documentable_type', Customer::class)
+                        ->first();
+                    if ($document) {
+                        $document->update($documentTypeData);
+                    } else {
+                        return response()->json(['error' => 'El tipo documento no está relacionado con este empleado.'], 403);
+                    }
+                }
+            }
+        }
+
+        if ($request->has('phones')) {
+            foreach ($request->phones as $phoneData) {
+                if (isset($phoneData['id'])) {
+                    $phone = Phone::where('id', $phoneData['id'])
+                        ->where('phoneable_id', $customer->id)
+                        ->where('phoneable_type', Customer::class)
+                        ->first();
+                    if ($phone) {
+                        $phone->update($phoneData);
+                    } else {
+                        return response()->json(['error' => 'El telefono no está relacionado con este empleado.'], 403);
+                    }
+                }
+            }
+        }
+
+        if ($request->has('addresses')) {
+            foreach ($request->addresses as $addressData) {
+                if (isset($addressData['id'])) {
+                    $address = Address::where('id', $addressData['id'])
+                        ->where('addressable_id', $customer->id)
+                        ->where('addressable_type', Customer::class)
+                        ->first();
+                    if ($address) {
+                        $address->update($addressData);
+                    } else {
+                        return response()->json(['error' => 'La direccion no está relacionado con este empleado.'], 403);
+                    }
+                }
+            }
+        }
+        return response()->json(['message' => "El empleado con el id {$customer->id} ha sido actualizado"], 200);
     }
 
-    public function destroy(){
-
+    public function destroy(Customer $customer){
+        $customer->delete();
+        return response()->json(['message' => "El cliente con el id {$customer->id} ha sido eliminado"], 200);
     }
 }

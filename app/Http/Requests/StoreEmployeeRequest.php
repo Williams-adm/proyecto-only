@@ -24,9 +24,9 @@ class StoreEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'alpha', 'between:3,50'],
-            'paternal_surname' => ['required', 'string', 'alpha', 'between:3,25'],
-            'maternal_surname' => ['required', 'string', 'alpha', 'between:3,25'],
+            'name' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,50'],
+            'paternal_surname' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,25'],
+            'maternal_surname' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,25'],
             'date_of_birth' => ['required', 'date_format:Y-m-d'],
             'salary' => ['required', 'numeric', 'between:0, 10000', 'decimal:2'],
             'payment_date' => ['required','string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
@@ -38,10 +38,10 @@ class StoreEmployeeRequest extends FormRequest
             'phones.*.prefix' => ['required', 'string', 'between:2,5'],
             'phones.*.number' => ['required','numeric', 'digits_between:2,12'],
             /*validacion de address */
-            'addresses.*.country' => ['required', 'string', 'max:20'],
-            'addresses.*.region' => ['required', 'string', 'max:60'],
-            'addresses.*.province' => ['required', 'string', 'max:60'],
-            'addresses.*.city' => ['required', 'string', 'max:60'],
+            'addresses.*.country' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'max:20'],
+            'addresses.*.region' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'max:60'],
+            'addresses.*.province' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'max:60'],
+            'addresses.*.city' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'max:60'],
             'addresses.*.street' => ['required', 'string', 'max:150'],
             'addresses.*.number' => ['required', 'string', 'between: 3,10'],
             /* validacion usuario */
