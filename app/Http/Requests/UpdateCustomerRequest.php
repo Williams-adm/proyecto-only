@@ -29,8 +29,8 @@ class UpdateCustomerRequest extends FormRequest
                 'paternal_surname' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,65'],
                 'maternal_surname' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,65'],
                 'date_of_birth' => ['nullable', 'date_format:Y-m-d'],
-                'business_name' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,85'],
-                'fiscal_address' => ['nullable', 'string', 'between:3,85'],
+                'business_name' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,85', 'unique:customers,business_name'],
+                'fiscal_address' => ['nullable', 'string', 'between:3,85', 'unique:customers,fiscal_address'],
                 'email' => ['nullable', 'email:rfc,dns', 'unique:customers,email'],
                 /* validacion para  documentTypes */
                 'document_types.*.id' => ['required', 'exists:document_types,id'],
@@ -55,8 +55,8 @@ class UpdateCustomerRequest extends FormRequest
                 'paternal_surname' => ['sometimes', 'nullable', 'string','regex:/^[\p{L}\s]+$/u', 'between:3,65'],
                 'maternal_surname' => ['sometimes', 'nullable', 'string','regex:/^[\p{L}\s]+$/u', 'between:3,65'],
                 'date_of_birth' => ['sometimes', 'nullable', 'date_format:Y-m-d'],
-                'business_name' => ['sometimes', 'nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,85'],
-                'fiscal_address' => ['sometimes', 'nullable', 'string', 'between:3,85'],
+                'business_name' => ['sometimes', 'nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,85', 'unique:customers,business_name'],
+                'fiscal_address' => ['sometimes', 'nullable', 'string', 'between:3,85', 'unique:customers,fiscal_address'],
                 'email' => ['sometimes', 'nullable', 'email:rfc,dns', 'unique:customers,email'],
                 /* validacion para  documentTypes */
                 'document_types.*.id' => ['required', 'exists:document_types,id'],

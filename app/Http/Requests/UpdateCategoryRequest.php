@@ -24,12 +24,12 @@ class UpdateCategoryRequest extends FormRequest
         $method = $this->method();
         if($method == 'PUT'){
             return [
-                'name' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,50'],
+                'name' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,50', 'unique:categories,name'],
                 'description' => ['required', 'string'],
             ];
         }else{
             return [
-                'name' => ['sometimes', 'required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,50'],
+                'name' => ['sometimes', 'required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,50', 'unique:categories,name'],
                 'description' => ['sometimes', 'required', 'string'],
                 'satus' => ['sometimes', 'required', 'boolean']
             ];

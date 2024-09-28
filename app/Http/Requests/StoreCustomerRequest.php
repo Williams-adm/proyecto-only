@@ -27,8 +27,8 @@ class StoreCustomerRequest extends FormRequest
             'paternal_surname' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,65'],
             'maternal_surname' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,65'],
             'date_of_birth' => ['nullable', 'date_format:Y-m-d'],
-            'business_name' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,85'],
-            'fiscal_address' => ['nullable', 'string', 'between:3,85'],
+            'business_name' => ['nullable', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,85', 'unique:customers,business_name'],
+            'fiscal_address' => ['nullable', 'string', 'between:3,85', 'unique:customers,fiscal_address'],
             'email' => ['nullable', 'email:rfc,dns', 'unique:customers,email'],
             /* validacion para  documentTypes */
             'document_types.*.type' => ['required', 'string', Rule::in(['DNI', 'PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])],

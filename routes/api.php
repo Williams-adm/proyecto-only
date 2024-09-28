@@ -6,6 +6,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\NoteCustomerController;
 use App\Http\Controllers\NoteEmployeeController;
 use App\Http\Controllers\PhoneController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +38,6 @@ Route::group(['prefix' => 'v1'], function(){
     });
 
     Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('suppliers', SupplierController::class);
+    Route::apiResource('products', ProductController::class);
 });

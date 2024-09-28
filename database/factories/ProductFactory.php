@@ -21,7 +21,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         $category = Category::all()->pluck('id')->toArray();
-        $name = strtoupper($this->faker->unique()->words(2, true));
+        $name = strtolower($this->faker->unique()->words(2, true));
         $code = $this->faker->unique()->ean8();
 
         $client = new Client();

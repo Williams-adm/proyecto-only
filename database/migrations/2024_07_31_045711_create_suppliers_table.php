@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->string('num_ruc', 11)->unique();
-            $table->string('business_name', 45)->unique();
-            $table->string('fiscal_address', 45)->unique()->nullable();
+            $table->string('business_name', 55)->unique();
+            $table->string('fiscal_address', 55)->unique()->nullable();
             $table->string('phone', 15)->unique();
             $table->string('contac', 80)->nullable();
             $table->boolean('status')->default(true);
