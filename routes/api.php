@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\NoteCustomerController;
@@ -33,4 +34,6 @@ Route::group(['prefix' => 'v1'], function(){
         Route::match(['put', 'patch'], '/{customer}/notes/{note}', 'update')->name('notesCustomer.update');
         Route::delete('/{customer}/notes/{note}', 'destroy')->name('notesCustomer.destroy');
     });
+
+    Route::apiResource('categories', CategoryController::class);
 });

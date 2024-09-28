@@ -62,10 +62,10 @@ class StoreCustomerRequest extends FormRequest
             $addresses = $this->input('addresses');
             foreach ($addresses as &$address) {
                 if (!isset($address['country'])) {
-                    $address['country'] = 'Peru';
+                    $address['country'] = 'peru';
                 }
                 if (!isset($address['region'])) {
-                    $address['region'] = 'Junin';
+                    $address['region'] = 'junin';
                 }
                 if (isset($address['province'])) {
                     $address['province'] = strtolower($address['province']);

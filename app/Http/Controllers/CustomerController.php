@@ -137,6 +137,17 @@ class CustomerController extends Controller
                 }
             }
         }
+
+        if ($customer->typeRecords->contains('type', 'AUTOMATICO')) {
+            $manualRecord = $customer->typeRecords()->where('type', 'MANUAL')->first();
+
+            if (!$manualRecord) {
+                $customer->typeRecords()->create([
+                    'type' => 'MANUAL',
+                ]);
+            }
+        }
+
         return response()->json(['message' => "El empleado con el id {$customer->id} ha sido actualizado"], 200);
     }
 
