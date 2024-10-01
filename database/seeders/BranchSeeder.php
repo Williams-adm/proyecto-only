@@ -16,6 +16,7 @@ class BranchSeeder extends Seeder
         Branch::create([
             'name' => strtolower('sucursal Principal'),
             'address' => strtolower('Calle real #2079'),
+            'prefix' => '+51',
             'phone' => '854982321'
         ]);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
@@ -40,4 +41,10 @@ Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('suppliers', SupplierController::class);
     Route::apiResource('products', ProductController::class);
+    Route::prefix('branches')->controller(BranchController::class)->group(function () {
+        Route::get('/', 'index')->name('branches.index');
+        Route::post('/', 'store')->name('branches.store');
+        Route::match(['put', 'patch'], '/{branch}', 'update')->name('branches.update');
+        Route::delete('/{branch}', 'destroy')->name('branches.destroy');
+    });
 });
