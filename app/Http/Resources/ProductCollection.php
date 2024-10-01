@@ -22,7 +22,6 @@ class ProductCollection extends ResourceCollection
                     "code" => $product->code,
                     "status" => $product->status,
                     "category_name" => $product->category->name,
-                    "cover_image_path" => $product->cover_image_path
                 ];
             })->all(),
         ];

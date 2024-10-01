@@ -3,6 +3,7 @@
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\NoteCustomerController;
 use App\Http\Controllers\NoteEmployeeController;
@@ -47,4 +48,6 @@ Route::group(['prefix' => 'v1'], function(){
         Route::match(['put', 'patch'], '/{branch}', 'update')->name('branches.update');
         Route::delete('/{branch}', 'destroy')->name('branches.destroy');
     });
+
+    Route::apiResource('discounts', DiscountController::class);
 });

@@ -29,7 +29,6 @@ class UpdateProductRequest extends FormRequest
                 "usage_recomendation" => ['nullable', 'string', 'min:10'],
                 "additional_features" => ['nullable', 'string', 'min:10'],
                 "category_id" => ['required', 'exists:categories,id', 'numeric'],
-                "cover_image_path" => ['string'],
             ];
         }else{
             return[
@@ -38,7 +37,6 @@ class UpdateProductRequest extends FormRequest
                 "usage_recomendation" => ['sometimes', 'nullable', 'string', 'min:10'],
                 "additional_features" => ['sometimes', 'nullable', 'string', 'min:10'],
                 "category_id" => ['sometimes', 'required', 'exists:categories,id', 'numeric'],
-                "cover_image_path" => ['sometimes', 'string'],
                 "status" => ['sometimes', 'boolean']
             ];
         }

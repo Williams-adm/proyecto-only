@@ -9,7 +9,15 @@ class Discount extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'porcentage',
+        'start_date',
+        'end_date'
+    ];
+
     public function products(){
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withTimestamps();;
     }
 }

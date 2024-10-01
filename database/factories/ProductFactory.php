@@ -24,12 +24,12 @@ class ProductFactory extends Factory
         $name = strtolower($this->faker->unique()->words(2, true));
         $code = $this->faker->unique()->ean8();
 
-        $client = new Client();
+        /* $client = new Client();
         $imageUrl = 'https://picsum.photos/720/1080';
         $imageName = 'CoverProduct/' . Str::slug($name . '-' . $code) . '.jpg';
 
         $response = $client->get($imageUrl);
-        Storage::put('public/' . $imageName, $response->getBody());
+        Storage::put('public/' . $imageName, $response->getBody()); */
 
         return [
             'name' => $name,
@@ -38,7 +38,7 @@ class ProductFactory extends Factory
             'usage_recomendation' => $this->faker->text(100),
             'additional_features' => $this->faker->text(100),
             'category_id' => $this->faker->randomElement($category),
-            'cover_image_path' => $imageName
+            /* 'cover_image_path' => $imageName */
         ];
     }
 }

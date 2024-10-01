@@ -18,7 +18,6 @@ class Product extends Model
         "usage_recomendation",
         "additional_features",
         "category_id",
-        "cover_image_path",
         "status"
     ];
 
@@ -48,7 +47,7 @@ class Product extends Model
     }
 
     public function discounts(){
-        return $this->belongsToMany(Discount::class);
+        return $this->belongsToMany(Discount::class)->withTimestamps();;
     }
 
     public function details(){

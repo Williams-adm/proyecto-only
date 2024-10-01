@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('additional_features')->nullable();
             $table->boolean('status')->default(true);
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->string('cover_image_path')->unique();
+            /* $table->string('cover_image_path')->unique(); */
             $table->foreign('category_id')->references('id')->on('categories')
             ->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
