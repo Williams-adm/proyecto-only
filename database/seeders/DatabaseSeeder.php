@@ -29,8 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionRoleSeeder::class);
         $this->call(CategorySeeder::class);
         Product::factory(20)->create();
-        $this->call(DiscountSeeder::class);
-        $this->call(DiscountProductSeeder::class);
         $this->call(DetailSeeder::class);
         DetailValue::factory(20)->create();
         DetailImage::factory(20)->create();
@@ -40,6 +38,8 @@ class DatabaseSeeder extends Seeder
         $this->call(InflowSeeder::class);
         $this->call(OutflowSeeder::class);
         $this->call(DetailOutflowSeeder::class);
+        $this->call(DiscountSeeder::class);
+        $this->call(DiscountInventorySeeder::class);
         $this->call(SaleSeeder::class);
         $this->call(DetailSaleSeeder::class);
         $this->call(PaymentMethodSeeder::class);

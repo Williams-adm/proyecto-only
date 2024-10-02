@@ -15,6 +15,11 @@ class Inventory extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class)->withTimestamps();;
+    }
+    
     public function branch(){
         return $this->belongsTo(Branch::class);
     }

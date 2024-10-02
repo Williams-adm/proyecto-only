@@ -46,10 +46,6 @@ class Product extends Model
         'status')->withTimestamps();
     }
 
-    public function discounts(){
-        return $this->belongsToMany(Discount::class)->withTimestamps();;
-    }
-
     public function details(){
         return $this->belongsToMany(Detail::class, 'detail_value')->withPivot('value')
         ->withTimestamps();

@@ -17,7 +17,7 @@ class Discount extends Model
         'end_date'
     ];
 
-    public function products(){
-        return $this->belongsToMany(Product::class)->withTimestamps();;
+    public function inventories(){
+        return $this->belongsToMany(Inventory::class)->withTimestamps();;
     }
 }
