@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Employee;
-use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +13,6 @@ class EmployeeRoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = Role::all();
-        $employees = Employee::all();
-
-        $specificEmployeeId = 1;
-        $specificRoleName = strtolower("Administrador");
-
         DB::table('employee_role')->insert([
             'employee_id' => 1,
             'role_id' => 1,

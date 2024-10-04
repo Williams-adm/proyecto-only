@@ -36,7 +36,7 @@ class DetailSaleSeeder extends Seeder
                 $unitprice = $inventorySearch->selling_price;
         
         
-                $discountSearch = DB::table('discount_product')->where('inventory_id')->select('discount_id')->first();
+                $discountSearch = DB::table('discount_inventory')->where('inventory_id', $inventoryID)->select('discount_id')->first();
                 if($discountSearch){
                     $discountID = $discountSearch->discount_id;
                     $discount = Discount::find($discountID)->porcentage;

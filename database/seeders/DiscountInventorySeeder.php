@@ -23,8 +23,8 @@ class DiscountInventorySeeder extends Seeder
             unset($inventory[$inventoryRand]);
             $inventory = array_values($inventory);
 
-            DB::table('discount_product')->insert([
-                'product_id' => $inventoryID,
+            DB::table('discount_inventory')->insert([
+                'inventory_id' => $inventoryID,
                 'discount_id' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
@@ -37,8 +37,8 @@ class DiscountInventorySeeder extends Seeder
             unset($inventory[$inventoryRand]);
             $inventory = array_values($inventory);
 
-            DB::table('discount_product')->insert([
-                'product_id' => $inventoryID,
+            DB::table('discount_inventory')->insert([
+                'inventory_id' => $inventoryID,
                 'discount_id' => 2,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

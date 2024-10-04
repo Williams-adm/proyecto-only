@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Address;
 use App\Models\DocumentType;
 use App\Models\Employee;
+use App\Models\EmployeeDocument;
 use App\Models\Note;
 use App\Models\Phone;
 use GuzzleHttp\Client;
@@ -67,5 +68,7 @@ class EmployeeSeeder extends Seeder
                 'documentable_type' => Employee::class
             ]);
         }
+
+        EmployeeDocument::factory(18)->create();
     }
 }
