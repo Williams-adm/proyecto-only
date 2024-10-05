@@ -21,11 +21,11 @@ class DiscountResource extends JsonResource
             'porcentage' => $this->porcentage,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
-            'products' => $this->inventories->transform(function ($product) {
+            'inventory' => $this->inventories->transform(function ($inventory) {
                 return [
-                    'id' => $product->id,
-                    'name' => $product->product->name,
-                    /* 'branch' => $product->branch->name, */
+                    'id_registration' => $inventory->pivot->id,
+                    'inventory_id' => $inventory->id,
+                    'name' => $inventory->product->name,
                 ];
             })->all(),
         ];

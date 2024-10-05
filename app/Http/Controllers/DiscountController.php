@@ -32,7 +32,6 @@ class DiscountController extends Controller
                 $discount->inventories()->attach($discountsData['inventory_id']);
             }
 
-
             DB::commit();
             return response()->json(['message' => "Los decuentos han sido creados"], 201);
 
@@ -48,7 +47,27 @@ class DiscountController extends Controller
 
     public function update(UpdateDiscountRequest $request, Discount $discount){
         $discount->update($request->all());
-        return response()->json(['message' => "La categoria con el id {$discount->id} ha sido actualizado"], 200);
+
+        if ($request->has('discount_product')) {
+            foreach ($request->input('discount_product') as $discountsData) {
+                if (isset($discountsData['id'])) {
+                    $pivot = DB::table('discount_inventory')
+                        ->where('id', $discountsData['id'])
+                        ->where('discount_id', $discount->id)
+                        ->first();
+                    if($pivot){
+                        DB::table('discount_inventory')
+                        ->where('id', $pivot->id)
+                        ->update($discountsData);
+                    }else{
+                        return response()->json(['error' => 'Este productono está relacionado con este descuento.'], 403);
+                    }
+                } else {
+                    return response()->json(['error' => 'El id del producto no está presente.'], 400);
+                }
+            }
+        }
+        return response()->json(['message' => "El descuento con el id {$discount->id} ha sido actualizado"], 200);
     }
 
     public function destroy(Discount $discount){

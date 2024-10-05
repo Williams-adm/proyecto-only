@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('discount_inventory', function (Blueprint $table) {
+            $table->id();
+
             $table->unsignedBigInteger('inventory_id');
             $table->foreign('inventory_id')->references('id')->on('inventory')
             ->onDelete('cascade')->onUpdate('cascade');
@@ -19,7 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('discount_id');
             $table->foreign('discount_id')->references('id')->on('discounts')
             ->onDelete('cascade')->onUpdate('cascade');
-            $table->primary(['inventory_id', 'discount_id']);
+            /* $table->primary(['inventory_id', 'discount_id']); */
+            $table->unique(['inventory_id', 'discount_id']);
             $table->timestamps();
         });
     }

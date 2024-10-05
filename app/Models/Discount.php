@@ -18,6 +18,6 @@ class Discount extends Model
     ];
 
     public function inventories(){
-        return $this->belongsToMany(Inventory::class)->withTimestamps();;
+        return $this->belongsToMany(Inventory::class)->withPivot('id','discount_id', 'inventory_id')->withTimestamps();
     }
 }

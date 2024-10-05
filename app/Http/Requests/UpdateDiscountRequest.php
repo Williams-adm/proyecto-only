@@ -30,6 +30,7 @@ class UpdateDiscountRequest extends FormRequest
                 'porcentage' => ['required', 'numeric', 'decimal:2', 'max:4'],
                 'start_date' => ['required', 'date_format:Y-m-d H:i:s'],
                 'end_date' => ['required', 'date_format:Y-m-d H:i:s'],
+                'discount_product.*.id' => ['required', 'exists:discount_inventory,id'],
                 'discount_product.*.inventory_id' => ['required', 'exists:inventory,id', 'numeric']
             ];
         }else{
@@ -39,6 +40,7 @@ class UpdateDiscountRequest extends FormRequest
                 'porcentage' => ['sometimes', 'required', 'numeric', 'decimal:2', 'max:4'],
                 'start_date' => ['sometimes', 'required', 'date_format:Y-m-d H:i:s'],
                 'end_date' => ['sometimes', 'required', 'date_format:Y-m-d H:i:s'],
+                'discount_product.*.id' => ['required', 'exists:discount_inventory,id'],
                 'discount_product.*.inventory_id' => ['sometimes', 'required', 'exists:inventory,id', 'numeric']
             ];
         }
