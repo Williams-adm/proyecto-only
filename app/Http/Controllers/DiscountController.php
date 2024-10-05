@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDiscountRequest;
+use App\Http\Requests\UpdateDiscountRequest;
 use App\Http\Resources\DiscountCollection;
 use App\Http\Resources\DiscountResource;
 use App\Models\Discount;
@@ -28,7 +29,7 @@ class DiscountController extends Controller
             ]);
 
             foreach ($request->input('discount_product') as $discountsData) {
-                $discount->products()->attach($discountsData['product_id']);
+                $discount->inventories()->attach($discountsData['inventory_id']);
             }
 
 
@@ -43,5 +44,15 @@ class DiscountController extends Controller
 
     public function show(Discount $discount){
         return new DiscountResource($discount);
+    }
+
+    public function update(UpdateDiscountRequest $request, Discount $discount){
+        $discount->update($request->all());
+        return response()->json(['message' => "La categoria con el id {$discount->id} ha sido actualizado"], 200);
+    }
+
+    public function destroy(Discount $discount){
+        $discount->delete();
+        return response()->json(['message' => "El descuento con el id {$discount->id} ha sido eliminado"], 200);
     }
 }

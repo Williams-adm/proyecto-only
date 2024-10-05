@@ -28,7 +28,7 @@ class StoreDiscountRequest extends FormRequest
             'porcentage' => ['required', 'numeric', 'decimal:2', 'max:4' ],
             'start_date' => ['required', 'date_format:Y-m-d H:i:s'],
             'end_date' => ['required', 'date_format:Y-m-d H:i:s'],
-            'discount_product.*.product_id' => ['required', 'exists:products,id', 'numeric']
+            'discount_product.*.inventory_id' => ['required', 'exists:inventory,id', 'numeric']
         ];
     }
 
