@@ -5,13 +5,13 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\NoteCustomerController;
 use App\Http\Controllers\NoteEmployeeController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /* Route::get('/user', function (Request $request) {
@@ -40,8 +40,14 @@ Route::group(['prefix' => 'v1'], function(){
     });
 
     Route::apiResource('categories', CategoryController::class);
+
     Route::apiResource('suppliers', SupplierController::class);
-    Route::apiResource('products', ProductController::class);
+
+    Route::apiResource('inventory', InventoryController::class);
+    Route::prefix('inventory')->controller(InventoryController::class)->group(function (){
+        Route::get('/{inventory}/stocks', 'showStockMinMax')->name('StockMinMax.show');
+    });
+
     Route::prefix('branches')->controller(BranchController::class)->group(function () {
         Route::get('/', 'index')->name('branches.index');
         Route::post('/', 'store')->name('branches.store');
@@ -50,4 +56,9 @@ Route::group(['prefix' => 'v1'], function(){
     });
 
     Route::apiResource('discounts', DiscountController::class);
+    Route::prefix('discounts')->controller(DiscountController::class)->group(function () {
+        Route::post('/inventory', 'storeDiscountInventary')->name('discountInventary.store');
+        Route::delete('/{discount}/inventory/{inventory}', 'destroyDiscountInventary')->name('discountInventary.destroy');
+    });
+
 });

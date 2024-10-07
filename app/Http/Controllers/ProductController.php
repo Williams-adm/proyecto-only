@@ -52,7 +52,7 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product){
         $product->update($request->all());
-        return response()->json(['message' => "El producto con el id {$product->id} ha sido actualizado"], 200);
+        return response()->json(['message' => "El producto  con el id {$product->id} ha sido actualizado"], 200);
     }
 
     public function destroy(Product $product){

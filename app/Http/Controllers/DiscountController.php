@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDiscountInventoryRequest;
 use App\Http\Requests\StoreDiscountRequest;
 use App\Http\Requests\UpdateDiscountRequest;
 use App\Http\Resources\DiscountCollection;
@@ -41,6 +42,29 @@ class DiscountController extends Controller
         }
     }
 
+    public function storeDiscountInventary(StoreDiscountInventoryRequest $request){
+        $exists = DB::table('discount_inventory')
+            ->where('id', $request->inventory_id)
+            ->where('id', $request->discount_inventory)
+            ->first();
+
+        if($exists){
+            return response()->json(['Este producto ya se encuentra registrado en ese descuento'], 400);
+        }
+        
+        try{
+            Discount::find($request->discount_id)->inventories()->attach($request->inventory_id);
+            return response()->json(['message' => 'Registro creado con éxito'], 201);
+            
+        }catch (\Illuminate\Database\QueryException $e){
+            if ($e->getCode() === '23000') { 
+                return response()->json(['error' => 'No se puede agregar este producto a este descuento porque ya existe.'], 400);
+            }
+            return response()->json(['error' => 'Ocurrió un error al intentar crear el registro.'], 500);
+        }
+    }
+
+
     public function show(Discount $discount){
         return new DiscountResource($discount);
     }
@@ -73,5 +97,24 @@ class DiscountController extends Controller
     public function destroy(Discount $discount){
         $discount->delete();
         return response()->json(['message' => "El descuento con el id {$discount->id} ha sido eliminado"], 200);
+    }
+
+    public function destroyDiscountInventary($discount, $inventory){
+        $exists = DB::table('discount_inventory')
+            ->where('discount_id', $discount)
+            ->where('inventory_id', $inventory)
+            ->exists();
+
+        if (!$exists) {
+            return response()->json(['error' => 'No se encontró la relación entre este descuento y producto.'], 404);
+        }
+
+        try {
+            Discount::find($discount)->inventories()->detach($inventory);
+            return response()->json(['message' => 'Registro eliminado con éxito'], 200);
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['error' => 'Ocurrió un error al intentar eliminar el registro.'], 500);
+        }
     }
 }
