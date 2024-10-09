@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\DetailImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,10 +20,12 @@ class InventoryResource extends JsonResource
             return [
                 'type' => $type,
                 'values' => $details->map(function ($detail) {
+                    $idDetail = $detail->pivot->id;
+                    $img = DetailImageResource::collection(DetailImage::where('detail_value_id', $idDetail)->get());
                     return [
-                        'product_id' => $detail->pivot->product_id,
-                        'detail_id' => $detail->pivot->detail_id,
+                        'id' => $idDetail,
                         'value' => $detail->pivot->value,
+                        'img' => $img
                     ];
                 })
             ];

@@ -11,7 +11,7 @@ class Detail extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'detail_value')->withPivot('value')
+        return $this->belongsToMany(Product::class, 'detail_value')->withPivot('id', 'value')
         ->withTimestamps();
     }
 }

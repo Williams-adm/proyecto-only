@@ -17,7 +17,7 @@ class Inventory extends Model
 
     public function discounts()
     {
-        return $this->belongsToMany(Inventory::class)->withPivot('id', 'discount_id', 'inventory_id')->withTimestamps();
+        return $this->belongsToMany(Discount::class)->withPivot('id', 'discount_id', 'inventory_id')->withTimestamps();
     }
     
     public function branch(){

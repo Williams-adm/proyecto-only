@@ -47,7 +47,7 @@ class Product extends Model
     }
 
     public function details(){
-        return $this->belongsToMany(Detail::class, 'detail_value')->withPivot('value')
+        return $this->belongsToMany(Detail::class, 'detail_value')->withPivot('id', 'value')
         ->withTimestamps();
     }
 }
