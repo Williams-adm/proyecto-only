@@ -21,7 +21,7 @@ class EmployeeCollection extends ResourceCollection
                     'full_name' => $employee->name . ' ' . $employee->paternal_surname . ' ' . $employee->maternal_surname,
                     /* 'phone' => PhoneResource::collection($employee->whenLoaded('phones')), */
                     'user' => new UserResource($employee->whenLoaded('user')),
-                    'roles' => RoleResource::collection($employee->whenLoaded('roles')),
+                    /* 'roles' => RoleResource::collection($employee->whenLoaded('roles')), */
                     'photo' => $employee->photo_path,
                     'registrarion_date' => $employee->created_at,
                 ];
