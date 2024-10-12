@@ -22,9 +22,14 @@ class EmployeeController extends Controller
         /* añadiendo filtro a la ruta */
         $filter = new EmployeeFilter();
         $queryItems = $filter->transform($request);
-        
-        $employees = Employee::with('user'/* , 'roles' */)->where($queryItems);
-        return new EmployeeCollection($employees->paginate()->appends($request->query()));
+
+        $perPage = $request->get('per_page', 15);
+
+        $employees = Employee::with('user'/* , 'roles' */)
+            ->where($queryItems)
+            ->paginate($perPage)
+            ->appends($request->query());
+        return new EmployeeCollection($employees);
     }
 
     public function store(StoreEmployeeRequest $request){
