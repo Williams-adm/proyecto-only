@@ -30,7 +30,7 @@ class StoreEmployeeRequest extends FormRequest
             'date_of_birth' => ['required', 'date_format:Y-m-d'],
             'salary' => ['required', 'numeric', 'between:0, 10000', 'decimal:2'],
             'payment_date' => ['required','string', Rule::in(['FIN DE MES', 'QUINCENAL', 'SEMANAL'])],
-            'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'photo_path' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:1000000'],
             /* validacion para  documentTypes */
             'document_types.*.type' => ['required', 'string', Rule::in(['DNI','PASAPORTE', 'CARNET_EXT', 'RUC', 'OTROS'])], 
             'document_types.*.number' => ['required','numeric', 'digits_between:6,15'],
@@ -81,11 +81,11 @@ class StoreEmployeeRequest extends FormRequest
         if ($this->has('addresses')) {
             $addresses = $this->input('addresses');
             foreach ($addresses as &$address) {
-                if (!isset($address['country'])) {
-                    $address['country'] = 'Peru';
+                if (isset($address['country'])) {
+                    $address['country'] = strtolower($address['country']);
                 }
-                if (!isset($address['region'])) {
-                    $address['region'] = 'Junin';
+                if (isset($address['region'])) {
+                    $address['region'] = strtolower($address['region']);
                 }
                 if(isset($address['province'])){
                     $address['province'] = strtolower($address['province']);

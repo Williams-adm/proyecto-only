@@ -26,7 +26,7 @@ class AddressFactory extends Factory
             /* 'district' => $districtrand, */
             'city' => $districtrand,
             'street' => strtolower('AV.') . strtolower($this->faker->randomElement($street)),
-            'number' => '#' . $this->faker->randomNumber(4)
+            'number' => $this->faker->randomNumber(4)
         ];
     }
 }

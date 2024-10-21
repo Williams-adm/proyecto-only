@@ -120,11 +120,11 @@ class UpdateEmployeeRequest extends FormRequest
         if ($this->has('addresses')) {
             $addresses = $this->input('addresses');
             foreach ($addresses as &$address) {
-                if (!isset($address['country'])) {
-                    $address['country'] = 'peru';
+                if (isset($address['country'])) {
+                    $address['country'] = strtolower($address['country']);
                 }
-                if (!isset($address['region'])) {
-                    $address['region'] = 'junin';
+                if (isset($address['region'])) {
+                    $address['region'] = strtolower($address['region']);
                 }
                 if (isset($address['province'])) {
                     $address['province'] = strtolower($address['province']);
