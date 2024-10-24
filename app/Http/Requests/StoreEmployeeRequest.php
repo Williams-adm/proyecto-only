@@ -49,7 +49,7 @@ class StoreEmployeeRequest extends FormRequest
             'user.password'=> ['required', 'string', 'between:8,25'],
             /*validacion de document employee*/
             'employee_documents.*.document_type' => ['nullable', 'string', Rule::in(['CV', 'COPIA DE DI', 'OTROS'])],
-            'employee_documents.*.document_path' => ['nullable', 'string'] /* cambiar a file luego */
+            'employee_documents.*.document_path' => ['nullable', 'file', 'mimes:pdf' ]
         ];
     } 
 

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->decimal('salary', 8,2);
             $table->enum('payment_date', ['FIN DE MES', 'QUINCENAL', 'SEMANAL']);
-            $table->string('photo_path')->nullable()->unique();
+            $table->string('photo_path')->nullable();
             $table->timestamps();
         });
     }

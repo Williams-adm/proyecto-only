@@ -15,6 +15,7 @@ use App\Models\EmployeeDocument;
 use App\Models\Phone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class EmployeeController extends Controller
 {
@@ -35,14 +36,27 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request){
         DB::beginTransaction();
         try{
+            $name = $request->input('name');
+            $paternal_surname = $request->input('paternal_surname');
+            $maternal_surname = $request->input('maternal_surname');
+
+            $photo_path = null;
+            if($request->hasFile('photo_path')){
+                $extension = $request->file('photo_path')->getClientOriginalExtension();
+                $photoName = Str::slug($name . '-' . $paternal_surname . '-' . $maternal_surname). '.' . $extension;
+                $photo_path = $request->file('photo_path')->storeAs('Employee', $photoName, 'public');
+            }else{
+                $photo_path = 'img/employee-without-photo.png';
+            }
+
             $employee = Employee::create([
-                'name' => $request->input('name'),
-                'paternal_surname' => $request->input('paternal_surname'),
-                'maternal_surname' => $request->input('maternal_surname'),
+                'name' => $name,
+                'paternal_surname' => $paternal_surname,
+                'maternal_surname' => $maternal_surname,
                 'date_of_birth' => $request->input('date_of_birth'),
                 'salary' => $request->input('salary'),
                 'payment_date' => $request->input('payment_date'),
-                'photo_path' => $request->input('photo_path'),
+                'photo_path' => $photo_path
             ]);
 
             foreach($request->input('document_types') as $documentsData){
@@ -62,8 +76,21 @@ class EmployeeController extends Controller
                 'password' => Hash::make($request->input('user.password')),
             ]);
 
-            foreach($request->input('employee_documents') as $employeeDocumentsData){
-                $employee->EmployeeDocuments()->create($employeeDocumentsData);
+            foreach ($request->file('employee_documents', []) as $documentFile) {
+                // Obtener el tipo de documento desde el request
+                $documentType = $documentFile->getClientOriginalName(); // Asumiendo que tienes un campo que lo identifica
+
+                // Generar el nombre del archivo con el formato tipodocumento-nombres.extensión
+                $fileName = Str::slug($documentType . '-' . $name . '-' . $paternal_surname . '-' . $maternal_surname) . '.' . $documentFile->getClientOriginalExtension();
+
+                // Guardar el archivo en la subcarpeta 'EmployeeDocuments'
+                $filePath = $documentFile->storeAs('EmployeeDocuments', $fileName, 'public');
+
+                // Guardar la información del documento junto con el path
+                $employee->employeeDocuments()->create([
+                    'document_type' => $documentType, // Asumiendo que tienes un campo 'document_type'
+                    'file_path' => $filePath,
+                ]);
             }
 
             DB::commit();

@@ -52,13 +52,6 @@ class Employee extends Model
         );
     }
 
-    protected function photoPath(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => Storage::url($value),
-        );
-    }
-
     protected function createdAt(): Attribute
     {
         return Attribute::make(
