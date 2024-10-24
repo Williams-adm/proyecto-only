@@ -55,6 +55,20 @@ class StoreEmployeeRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        if ($this->has('employeeData')) {
+            // Decodificar JSON a un array de PHP
+            $employeeData = json_decode($this->input('employeeData'), true);
+
+            // Verificar si el JSON fue decodificado correctamente
+            if (is_array($employeeData)) {
+                // Fusionar los datos decodificados con el request
+                $this->merge($employeeData);
+            } else {
+                // Si el JSON no fue decodificado correctamente, lanzar un error
+                throw new \Exception('Invalid JSON in employeeData');
+            }
+        }
+
         if ($this->has('date_of_birth')) {
             $dateBirth = $this->input('date_of_birth');
             $this->merge([
