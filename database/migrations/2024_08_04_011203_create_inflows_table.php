@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('inflows', function (Blueprint $table) {
             $table->id();
             $table->string('operation', 55);
-            /* $table->dateTime('entry_date'); */
             /* $table->string('code', 15)->unique(); */
             $table->string('type_voucher', 50);
             $table->string('num_voucher', 15)->unique();

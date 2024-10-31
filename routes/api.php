@@ -55,12 +55,12 @@ Route::group(['prefix' => 'v1'], function(){
         Route::delete('/{employee}/notes/{note}', 'destroy')->name('notesEmployee.destroy');
     });
     
+    Route::apiResource('inventory/inflow', InflowController::class);
+
     Route::apiResource('inventory', InventoryController::class);
     Route::prefix('inventory')->controller(InventoryController::class)->group(function (){
         Route::get('/{inventory}/stocks', 'showStockMinMax')->name('StockMinMax.show');
     });
 
-    Route::apiResource('inventory/inflow', InflowController::class);
-    
     Route::apiResource('suppliers', SupplierController::class);
 });
