@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('operation', 55);
             /* $table->dateTime('entry_date'); */
-            $table->string('code', 15)->unique();
+            /* $table->string('code', 15)->unique(); */
             $table->string('type_voucher', 50);
-            $table->string('num_voucher', 15);
+            $table->string('num_voucher', 15)->unique();
             $table->string('path_voucher')->unique();
             $table->decimal('total', 10, 2)->nullable();
             $table->text('reazon')->nullable();
