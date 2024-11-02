@@ -10,6 +10,17 @@ class Inflow extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'operation',
+        'type_voucher',
+        'num_voucher',
+        'path_voucher',
+        'total',
+        'reazon',
+        'supplier_id',
+        'branch_id',
+    ];
+    
     protected function operation() : Attribute{
         return Attribute::make(
             get: fn(string $value) => ucwords($value)

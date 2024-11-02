@@ -22,14 +22,18 @@ class StoreInflowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "operation" => ['required', 'string'],
-            "type_voucher" => ['required', ''],
-            "num_voucher" => ['required', 'string', ''],
-            "path_voucher" => ['required','file', 'mimes:pdf'],
+            "operation" => ['required', 'string', 'between:5,55'],
+            "type_voucher" => ['required', 'string', 'between:3,50'],
+            "num_voucher" => ['required', 'string', 'between:3,15'],
+            "path_voucher" => ['required',/* 'file', 'mimes:pdf' */],
             "total" => ['nullable','numeric', 'decimal:2'],
             "reazon" => ['nullable', 'string'],
-            "supplier_id" => ['required', ''],
-            "branch_id" => ['required', '']
+            "supplier_id" => ['nullable', 'exists:suppliers,id', 'numeric'],
+            "branch_id" => ['required', 'exists:branches,id', 'numeric'],
+            "detail_inflow.*.quantity" => ['required', 'numeric', 'min:1'],
+            "detail_inflow.*.purcharse_price" => ['nullable', 'numeric', 'decimal:2'],
+            "detail_inflow.*.profit" => ['nullable', 'numeric', 'decimal:2'],
+            "detail_inflow.*.inventory_id" => ['required', 'numeric', 'exists:inventory,id'],
         ];
     }
 }
