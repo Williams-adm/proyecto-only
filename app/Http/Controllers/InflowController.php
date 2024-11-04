@@ -35,7 +35,11 @@ class InflowController extends Controller
             ]);
 
             foreach ($request->input('detail_inflow')as $detailInflowData){
-                $inflow->inventories()->create($detailInflowData);
+                $inflow->inventories()->attach($detailInflowData['inventory_id'], [
+                'quantity' => $detailInflowData['quantity'],
+                'purcharse_price' => $detailInflowData['purcharse_price'],
+                'profit' => $detailInflowData['profit']
+                ]);
             }
             DB::commit();
             return response()->json(['message' => 'Entrada creada exitosamente'], 201);

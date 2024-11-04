@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetailInflow extends Model
 {
     use HasFactory;
+    protected $table = 'detail_inflow';
 
     protected $fillable = [
         'quantity',
@@ -17,7 +18,7 @@ class DetailInflow extends Model
         'inventory_id'
     ];
 
-    protected $table = 'detail_inflow';
+    
     public function inflow(){
         return $this->belongsTo(Inflow::class);
     }
