@@ -71,9 +71,11 @@ class StoreEmployeeRequest extends FormRequest
 
         if ($this->has('date_of_birth')) {
             $dateBirth = $this->input('date_of_birth');
-            $this->merge([
-                'date_of_birth' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
-            ]);
+            if(Carbon::hasFormat($dateBirth, 'd-m-Y')){
+                $this->merge([
+                    'date_of_birth' => Carbon::createFromFormat('d-m-Y', $dateBirth)->format('Y-m-d')
+                ]);
+            }
         };
 
         if($this->has('payment_date')){
