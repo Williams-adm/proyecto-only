@@ -16,8 +16,12 @@ class CategoryController extends Controller
         $filter = new CategoryFilter();
         $queryItems = $filter->transform($request);
 
-        $category = Category::where($queryItems);
-        return new CategoryCollection($category->paginate()->appends($request->query()));
+        $perPage = $request->get('per_page', 15);
+        
+        $category = Category::where($queryItems)
+            ->paginate($perPage)
+            ->appends($request->query());
+        return new CategoryCollection($category);
     }
 
     public function store(StoreCategoryRequest $request){
