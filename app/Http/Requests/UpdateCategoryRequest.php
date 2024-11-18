@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -31,9 +32,8 @@ class UpdateCategoryRequest extends FormRequest
             return [
                 'name' => ['sometimes', 'required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,50', 'unique:categories,name'],
                 'description' => ['sometimes', 'required', 'string'],
-                'status' => ['sometimes', 'required', 'boolean']
+                'status' => ['sometimes', 'required', 'boolean', Rule::in([true, false, 1, 0])]
             ];
         }
-
     }
 }
