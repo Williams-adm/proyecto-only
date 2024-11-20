@@ -58,8 +58,22 @@ class CategoryController extends Controller
     }
 
     public function store(StoreCategoryRequest $request){
-        Category::create($request->all());
-        return response()->json(['message' => "La categoria a sido creada"], 201);
+        try{
+            $category = Category::create($request->all());
+            return new CategoryResource($category);
+
+        } catch (ConnectionException $e) {
+            Log::error('Error de conexión: ' . $e->getMessage());
+            return response()->json(['error' => 'Error de conexión. Por favor, inténtelo más tarde.'], 503);
+
+        } catch(QueryException $e){
+            Log::error('Error al intentar crear la categoría: ' . $e->getMessage());
+            return response()->json(['error' => 'Error al intentar crear la categoría'], 400);
+            
+        } catch (Exception $e) {
+            Log::error('Error inesperado: ' . $e->getMessage());
+            return response()->json(['error' => 'Error inesperado.'], 500);
+        }
     }
 
     public function show(Category $category){
