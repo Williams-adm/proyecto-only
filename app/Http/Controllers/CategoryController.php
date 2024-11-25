@@ -59,8 +59,8 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request){
         try{
-            $category = Category::create($request->all());
-            return new CategoryResource($category);
+            Category::create($request->all());
+            return response()->json(['message' => "La categoría a sido creada"], 201);
 
         } catch (ConnectionException $e) {
             Log::error('Error de conexión: ' . $e->getMessage());
