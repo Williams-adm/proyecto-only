@@ -26,7 +26,7 @@ class UpdateCategoryRequest extends FormRequest
         if($method == 'PUT'){
             return [
                 'name' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,50', 'unique:categories,name'],
-                'description' => ['required', 'string'],
+                'description' => ['nullable', 'string'],
             ];
         }else{
             return [
