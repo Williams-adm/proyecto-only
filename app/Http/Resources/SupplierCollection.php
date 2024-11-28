@@ -19,8 +19,10 @@ class SupplierCollection extends ResourceCollection
                 return[
                     "id" => $supplier->id,
                     "business_name" => $supplier->business_name,
+                    "num_ruc" => $supplier->num_ruc,
+                    "fiscal_address" => $supplier->fiscal_address,
                     "phone" => $supplier->phone,
-                    "contac" => $supplier->contact,
+                    "contac" => $supplier->contac,
                     "status" => $supplier->status
                 ];
             })->all(),

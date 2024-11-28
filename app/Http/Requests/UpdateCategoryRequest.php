@@ -31,7 +31,7 @@ class UpdateCategoryRequest extends FormRequest
         }else{
             return [
                 'name' => ['sometimes', 'required', 'string', 'regex:/^[\p{L}\s]+$/u', 'between:3,50', 'unique:categories,name'],
-                'description' => ['sometimes', 'required', 'string'],
+                'description' => ['sometimes', 'nullable', 'string'],
                 'status' => ['sometimes', 'required', 'boolean', Rule::in([true, false, 1, 0])]
             ];
         }
