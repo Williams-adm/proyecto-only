@@ -38,7 +38,7 @@ class EmployeeSeeder extends Seeder
 
         $employee->update(['photo_path' => $imageName]);
 
-        Employee::factory(5)->create();
+        Employee::factory(35)->create();
         $employees = Employee::all()->pluck('id')->toArray();
 
         foreach($employees as $employeePhones){

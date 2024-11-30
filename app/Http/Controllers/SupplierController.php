@@ -52,8 +52,19 @@ class SupplierController extends Controller
     }
 
     public function store(StoreSupplierRequest $request) {
-        Supplier::create($request->all());
-        return response()->json(['message' => "El proveedor a sido creado"], 201);
+        try{
+            Supplier::create($request->all());
+            return response()->json(['message' => "El proveedor a sido creado"], 201);
+        } catch (ConnectionException $e) {
+            Log::error('Error de conexión: ' . $e->getMessage());
+            return response()->json(['error' => 'Error de conexión. Por favor, inténtelo más tarde.'], 503);
+        } catch (QueryException $e) {
+            Log::error('Error al intentar crear la categoría: ' . $e->getMessage());
+            return response()->json(['error' => 'Error al intentar crear el proveedor'], 400);
+        } catch (Exception $e) {
+            Log::error('Error inesperado: ' . $e->getMessage());
+            return response()->json(['error' => 'Error inesperado.'], 500);
+        }
     }
 
     public function show(Supplier $supplier) {

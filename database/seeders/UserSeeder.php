@@ -27,6 +27,6 @@ class UserSeeder extends Seeder
                 'employee_id' => $employee->id,
             ]);
         }
-        User::factory(5)->create();
+        User::factory(35)->create();
     }
 }

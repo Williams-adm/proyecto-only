@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiExterna\RucController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -63,4 +64,7 @@ Route::group(['prefix' => 'v1'], function(){
     });
 
     Route::apiResource('suppliers', SupplierController::class);
+
+    /* CONSUMO DE APIS EXTERNAS */
+    Route::get('ruc/{ruc}', [RucController::class, 'searchRuc'])->name('get.rucSearch');
 });
