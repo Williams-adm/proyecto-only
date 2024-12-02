@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +18,7 @@ class Phone extends Model
         $typeMap = [
             'App\Models\Employee' => 'Employee',
             'App\Models\Customer' => 'Customer',
+            'App\Models\Supplier' => 'Supplier',
         ];
 
         return $typeMap[$this->attributes['phoneable_type']] ?? 'Unknown';

@@ -19,8 +19,8 @@ class SupplierResource extends JsonResource
             "num_ruc" => $this->num_ruc,
             "business_name" => $this->business_name,
             "fiscal_address" => $this->fiscal_address,
-            "phone" => $this->phone,
-            "contac" => $this->contact,
+            'phones' => PhoneResource::collection($this->whenLoaded('phones')),
+            "contac" => $this->contac,
         ];
     }
 }

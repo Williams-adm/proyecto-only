@@ -13,6 +13,7 @@ use App\Models\Supplier;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SupplierController extends Controller
@@ -29,6 +30,7 @@ class SupplierController extends Controller
             }
 
             $supplier = Supplier::where($queryItems)
+                ->with('phones')
                 ->paginate($perPage)
                 ->appends($request->query());
             return new SupplierCollection($supplier);
@@ -53,8 +55,21 @@ class SupplierController extends Controller
 
     public function store(StoreSupplierRequest $request) {
         try{
-            Supplier::create($request->all());
+            DB::beginTransaction();
+            $supplier = Supplier::create([
+                'num_ruc' => $request->input('num_ruc'),
+                'business_name' => $request->input('business_name'),
+                'fiscal_address' => $request->input('fiscal_address'),
+                'contac' => $request->input('contac'),
+            ]);
+
+            foreach($request->input('phone') as $phoneData){
+                $supplier->phones()->create($phoneData);
+            }
+            
+            DB::commit();
             return response()->json(['message' => "El proveedor a sido creado"], 201);
+
         } catch (ConnectionException $e) {
             Log::error('Error de conexión: ' . $e->getMessage());
             return response()->json(['error' => 'Error de conexión. Por favor, inténtelo más tarde.'], 503);
@@ -68,6 +83,7 @@ class SupplierController extends Controller
     }
 
     public function show(Supplier $supplier) {
+        $supplier->load('phones');
         return new SupplierResource($supplier);
     }
 

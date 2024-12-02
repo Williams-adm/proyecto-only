@@ -25,7 +25,8 @@ class StoreSupplierRequest extends FormRequest
             'num_ruc' => ['required', 'numeric', 'min_digits:11', 'unique:suppliers,num_ruc'],
             'business_name' => ['required', 'string','regex:/^[\p{L}\s]+$/u', 'unique:suppliers,business_name'],
             'fiscal_address' => ['nullable', 'string', 'between:3,55', 'unique:suppliers,fiscal_address'],
-            'phone' => ['required', 'numeric', 'digits_between:9,15', 'unique:suppliers,phone'],
+            'phone.*.prefix' => ['required', 'string', 'between:2,5'],
+            'phone.*.number' => ['required', 'numeric', 'digits_between:2,12'],
             'contac' => ['nullable', 'string']
         ];
     }

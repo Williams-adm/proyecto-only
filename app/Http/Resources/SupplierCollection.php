@@ -21,7 +21,7 @@ class SupplierCollection extends ResourceCollection
                     "business_name" => $supplier->business_name,
                     "num_ruc" => $supplier->num_ruc,
                     "fiscal_address" => $supplier->fiscal_address,
-                    "phone" => $supplier->phone,
+                    'phones' => PhoneResource::collection($supplier->whenLoaded('phones')),
                     "contac" => $supplier->contac,
                     "status" => $supplier->status
                 ];

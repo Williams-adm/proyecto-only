@@ -14,7 +14,6 @@ class Supplier extends Model
         'num_ruc',
         'business_name',
         'fiscal_address',
-        'phone',
         'contac',
         'status'
     ];
@@ -44,5 +43,10 @@ class Supplier extends Model
 
     public function inflows(){
         return $this->hasMany(Inflow::class);
+    }
+
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'phoneable');
     }
 }
