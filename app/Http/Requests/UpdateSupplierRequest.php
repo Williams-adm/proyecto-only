@@ -27,16 +27,18 @@ class UpdateSupplierRequest extends FormRequest
                 'num_ruc' => ['required', 'numeric', 'min_digits:11', 'unique:suppliers,num_ruc'],
                 'business_name' => ['required', 'string', 'regex:/^[\p{L}\s]+$/u', 'unique:suppliers,business_name'],
                 'fiscal_address' => ['nullable', 'string', 'between:3,55', 'unique:suppliers,fiscal_address'],
-                'phone' => ['required', 'numeric', 'digits_between:9,15', 'unique:suppliers,phone'],
+                'phone.*.prefix' => ['required', 'string', 'between:2,5'],
+                'phone.*.number' => ['required', 'numeric', 'digits_between:2,12'],
                 'contac' => ['nullable', 'string']
             ];
         }else{
             return[
-                'num_ruc' => ['sometimes','required', 'numeric', 'min_digits:11', 'unique:suppliers,num_ruc'],
-                'business_name' => ['sometimes', 'required', 'string', 'regex:/^[\p{L}\s]+$/u', 'unique:suppliers,business_name'],
-                'fiscal_address' => ['sometimes', 'nullable', 'string', 'between:3,55', 'unique:suppliers,fiscal_address'],
-                'phone' => ['sometimes', 'required', 'numeric', 'digits_between:9,15', 'unique:suppliers,phone'],
-                'contac' => ['sometimes', 'nullable', 'string'],
+                'num_ruc' => ['sometimes', 'required', 'numeric', 'min_digits:11', 'unique:suppliers,num_ruc'],
+                'business_name' => ['sometimes','required', 'string', 'regex:/^[\p{L}\s]+$/u', 'unique:suppliers,business_name'],
+                'fiscal_address' => ['sometimes','nullable', 'string', 'between:3,55', 'unique:suppliers,fiscal_address'],
+                'phone.*.prefix' => ['sometimes','required', 'string', 'between:2,5'],
+                'phone.*.number' => ['sometimes','required', 'numeric', 'digits_between:2,12'],
+                'contac' => ['sometimes','nullable', 'string'],
                 'status' => ['sometimes', 'boolean']
             ];
         }  
